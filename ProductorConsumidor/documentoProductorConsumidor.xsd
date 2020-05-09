@@ -1,0 +1,15 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="documentoProductorConsumidor" type="tipoDocumentoProductorConsumidor"/>
+    <xsd:complexType name="tipoDocumentoProductorConsumidor">
+        <xsd:sequence>
+            <xsd:element name="noticia" type="tipoNoticia"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="tipoNoticia">
+        <xsd:sequence>
+            <xsd:element name="shortDescription" type="xsd:string"/>
+            <xsd:element name="largeDescription" type="xsd:string"/>
+	    <xsd:element name="date" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

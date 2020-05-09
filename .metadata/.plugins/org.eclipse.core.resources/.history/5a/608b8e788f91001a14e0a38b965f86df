@@ -1,0 +1,5 @@
+package dwsc.proyecto.client.buscarpelicula;
+
+public class MovieRepository {
+
+}

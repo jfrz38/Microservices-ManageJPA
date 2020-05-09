@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<documentoProductorConsumidor>
+	<noticia>
+		<shortDescription>short description</shortDescription>
+		<largeDescription>large description</largeDescription>
+		<date>01/01/0001</date>
+	</noticia>
+</documentoProductorConsumidor>

@@ -1,0 +1,7 @@
+spring:
+  application: 
+    name: buscar-pelicula-app
+info:
+  app:
+    name: ${spring.application.name}
+    description: This application returns the movie management.
