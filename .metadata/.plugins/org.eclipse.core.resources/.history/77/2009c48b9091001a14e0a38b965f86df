@@ -1,6 +1,0 @@
-spring.datasource:
-  url: a
-  username: a
-  password: a
-  driver-class-name: org.postgresql.Driver
-spring:  jpa:    hibernate:      ddl-auto: update

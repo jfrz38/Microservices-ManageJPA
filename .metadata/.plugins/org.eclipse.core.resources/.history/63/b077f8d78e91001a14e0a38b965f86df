@@ -1,5 +1,0 @@
-package dwsc.proyecto.client.gestionarpelicula.feign;
-
-public class BuscarPeliculaClient {
-
-}

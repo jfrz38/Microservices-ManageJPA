@@ -1,7 +1,0 @@
-spring:
-  application: 
-    name: client-gestionarpeliculas-feign
-info:
-  app:
-    name: ${spring.application.name}
-    description: This application returns the movie management.
