@@ -1,0 +1,7 @@
+spring:
+  application: 
+    name: client-eliminar-comentario
+info:
+  app:
+    name: ${spring.application.name}
+    description: This application delete a comment.

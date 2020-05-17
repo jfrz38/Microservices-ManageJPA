@@ -1,0 +1,7 @@
+spring:
+  application: 
+    name: client-comentar-pelicula
+info:
+  app:
+    name: ${spring.application.name}
+    description: This application insert a comment.

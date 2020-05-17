@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @RestController
 public class VerificarDatosController {
@@ -21,17 +23,25 @@ public class VerificarDatosController {
 	@Autowired
 	RestTemplate template;
 
-	@GetMapping("/movie/{movieName}")
-	public ResponseEntity<String> getMovie(@PathVariable String movieName) 
+	@GetMapping("/movie/{movieName}/{year}")
+	public ResponseEntity<String> getMovie(@PathVariable("movieName") String movieName,
+			@PathVariable("year")int year) 
 			throws JsonProcessingException {
-
 		String body = template.getForObject(apiURL + "&s=" + movieName, String.class);
 		String response = new ObjectMapper().readTree(body).get("Response").asText();
 		if (response.equalsIgnoreCase("True")) {
-			return ResponseEntity.ok().header("Microservice", "A").body(body);
-		} else {
-			return ResponseEntity.noContent().header("Microservice", "A").build();
+			//Comprobar año y título
+			ArrayNode results = (ArrayNode) new ObjectMapper().readTree(body).get("Search");
+			for(JsonNode node : results) {
+				if((node.get("Title").asText().equalsIgnoreCase(movieName)) &&
+						(node.get("Year").asInt()==year)) {
+					System.out.println("return: "+node.get("Poster").asText());
+					return ResponseEntity.ok().body(node.get("Poster").asText());
+				}
+			}
 		}
+		
+		return ResponseEntity.noContent().build();
 	}
 
 	@Bean

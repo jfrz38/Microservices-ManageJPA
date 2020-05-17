@@ -1,5 +1,7 @@
 package Server;
 
+import java.net.InetAddress;
+
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContext;
@@ -10,7 +12,6 @@ import org.omg.CosNaming.NamingContextHelper;
 public class BufferServer {
     public static void main(String args[]) {
        try {
-    	   
             ORB orb = ORB.init(args, null); // Crea e inicializa el ORB
             // Crea un hilo (servant) y lo registra en el ORB
             BufferImpl bufferRef = new BufferImpl();

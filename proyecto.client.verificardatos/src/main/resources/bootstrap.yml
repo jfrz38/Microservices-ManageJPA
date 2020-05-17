@@ -1,7 +1,7 @@
 spring:
   application: 
-    name: client-buscar-peliculas
+    name: client-verificar-datos
 info:
   app:
     name: ${spring.application.name}
-    description: This application returns if a movie has been found; MicroserviceA.
+    description: This application verify a movie.

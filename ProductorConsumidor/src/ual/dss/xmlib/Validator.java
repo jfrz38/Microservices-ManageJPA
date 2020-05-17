@@ -31,12 +31,12 @@ public class Validator {
 			Source xmlFile = new StreamSource(new File(xml));
 			// Esquema con el que comparar
 			Source schemaFile = new StreamSource(new File(xsd));
-			// Preparación del esquema
+			// PreparaciÃ³n del esquema
 			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 			Schema schema = schemaFactory.newSchema(schemaFile);
-			// Creación del validador
+			// CreaciÃ³n del validador
 			javax.xml.validation.Validator validator = schema.newValidator();
-			// Definición del manejador de excepciones del validador
+			// DefiniciÃ³n del manejador de excepciones del validador
 			final List exceptions = new LinkedList();
 			validator.setErrorHandler(new ErrorHandler() {
 				public void warning(SAXParseException exception) throws SAXException {
@@ -51,7 +51,7 @@ public class Validator {
 					exceptions.add(exception);
 				}
 			});
-			// Validación del XML
+			// ValidaciÃ³n del XML
 			validator.validate(xmlFile);
 			if (exceptions.size() == 0) {
 				System.out.println("FILE " + xmlFile.getSystemId() + " IS VALID");
@@ -69,4 +69,51 @@ public class Validator {
 		return true;
 
 	}
+
+	public static boolean validate(String xml, InputStream xsd) {
+	     try {
+	      //XML a validar
+	      Source xmlFile = new StreamSource(new File(xml));      
+	      //Esquema con el que comparar
+	      Source schemaFile = new StreamSource(xsd);
+	      //Preparaci�n del esquema
+	      SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+	      Schema schema = schemaFactory.newSchema(schemaFile);   
+	      //Creaci�n del validador
+	      javax.xml.validation.Validator validator = schema.newValidator();
+	      //Definici�n del manejador de excepciones del validador
+	      final List exceptions = new LinkedList();
+	      validator.setErrorHandler(
+	        new ErrorHandler() {
+	         public void warning(SAXParseException exception) throws SAXException {
+	          exceptions.add(exception); }
+	         public void fatalError(SAXParseException exception) throws SAXException {
+	          exceptions.add(exception); }
+	         public void error(SAXParseException exception) throws SAXException {
+	          exceptions.add(exception); }
+	        }
+	      );
+	      //Validaci�n del XML
+	      validator.validate(xmlFile);     
+	      if (exceptions.size()==0) 
+	      { 
+	    	  System.out.println("FILE " + xmlFile.getSystemId() + " IS VALID"); 
+	      }
+	      else 
+	      { 
+	    	  System.out.println("FILE " + xmlFile.getSystemId() + " IS INVALID"); 
+	    	  return false;
+	      }           
+	    } catch (SAXException e) 
+	    { 
+	    	System.out.println("Error encontrado, " + e.getMessage());
+	    	return false;
+	    }
+	    catch (IOException e) 
+	    { 
+	    	System.out.println("Error encontrado, " + e.getMessage());
+	    	return false;
+	    }
+	    return true;
+	  }
 }

@@ -4,4 +4,4 @@ spring:
 info:
   app:
     name: ${spring.application.name}
-    description: This application returns the movie management.
+    description: This application returns the movie found.

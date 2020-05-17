@@ -150,4 +150,36 @@ public class XMLCoder {
 			return strResult;
 		}
 	}
+
+	public static boolean validate(String filename){
+	       try {
+	          File inputFile = new File(filename);
+	          DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	          DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	          Document doc = dBuilder.parse(inputFile);
+	          doc.getDocumentElement().normalize();
+
+	          NodeList nList = doc.getElementsByTagName("noticia");
+
+	          for (int temp = 0; temp < nList.getLength(); temp++) 
+	          {
+	            Node nNode = nList.item(temp);
+
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) 
+	            {
+	                    Element eElement = (Element) nNode;
+
+	                    eElement.getElementsByTagName("date").item(0).getTextContent();
+	                    eElement.getElementsByTagName("shortDescription").item(0).getTextContent();
+	                    eElement.getElementsByTagName("longDescription").item(0).getTextContent();
+	            }
+	         }
+	       } catch (Exception e) 
+	       {
+		       System.out.println("Error encontrado, " + e.getMessage());
+	           return false;
+	       }
+	       
+	       return true;
+	    }
 }
