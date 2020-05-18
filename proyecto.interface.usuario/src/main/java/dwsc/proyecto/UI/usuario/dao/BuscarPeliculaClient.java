@@ -32,4 +32,10 @@ public interface BuscarPeliculaClient {
 	
 	@GetMapping("/lowRate/{rating}")
 	ResponseEntity<List<Movie>>getByLowerRating(@PathVariable("rating") double rating);
+	
+	@GetMapping("/bestMovies/{limit}")
+	ResponseEntity<List<Movie>> getBestMovies(@PathVariable("limit") int limit);
+	
+	@GetMapping("/lastMovies/{limit}")
+	ResponseEntity<List<Movie>> getLastMovies(@PathVariable("limit") int limit);
 }

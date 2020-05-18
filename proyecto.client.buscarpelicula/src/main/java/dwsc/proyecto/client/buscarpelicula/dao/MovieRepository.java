@@ -26,4 +26,10 @@ public interface MovieRepository extends CrudRepository<Movie, Long>{
 	
 	@Query(value = "SELECT * FROM movie WHERE rating <= :rating", nativeQuery=true)
 	List<Movie> queryByRatingLow(@Param("rating") double rating);
+	
+	@Query(value="SELECT * FROM movie ORDER BY rating DESC LIMIT :limit", nativeQuery=true)
+	List<Movie> queryBestMovies(@Param("limit") int limit);
+	
+	@Query(value="SELECT * FROM movie ORDER BY year DESC LIMIT :limit", nativeQuery=true)
+	List<Movie> queryLastMovies(@Param("limit") int limit);
 }

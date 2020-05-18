@@ -30,6 +30,7 @@ import ual.dss.xmlib.XMLDecoder;
 /**
  * The Class ServletImpl.
  */
+
 public class ServletImpl extends HttpServlet {
 
 	/** The buffer impl. */
@@ -136,6 +137,10 @@ public class ServletImpl extends HttpServlet {
 		 * CONSUMIDOR *
 		 *************/
 
+		System.out.println("Entra doGet");
+		request.setAttribute("message", "hello");
+		request.getRequestDispatcher("/noticias.jsp").forward(request, response);
+		if(true) return;
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String fileUrl = request.getServletContext().getRealPath("/");

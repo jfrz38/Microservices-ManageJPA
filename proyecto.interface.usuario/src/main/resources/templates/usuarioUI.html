@@ -1,23 +1,303 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-<title>Users</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>Películas</title>
+<!-- <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" /> -->
 <link
 	href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,4
 00italic,500,500italic,700,700italic,900italic,900'
 	rel='stylesheet' type='text/css' />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" th:href="@{/images/icons/favicon.png}" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/fonts/fontawesome-5.0.8/css/fontawesome-all.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/vendor/animate/animate.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/vendor/css-hamburgers/hamburgers.min.css}">
+<!--===============================================================================================-->
+<!-- <link rel="stylesheet" type="text/css"
+	th:href="@{/vendor/animsition/css/animsition.min.css}"> -->
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/css/util.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<!--===============================================================================================-->
+
+<!--  RESULTS CSS -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/results/style.css}">
+	<link rel="stylesheet" th:href="@{/css/results/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/results/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/results/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/results/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/results/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/results/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/css/results/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/results/gijgo.css}">
+    <link rel="stylesheet" th:href="@{/css/results/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/results/slicknav.css}">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/callController.js}"/></script>
+
 </head>
-<body>
-	<div>
-		<table>
-			<tr>
-				<th>Username</th>
-				<th>DNI</th>
-				<th>Name</th>
-				<th>Surnames</th>
-				<th>Age</th>
-			</tr>
-		</table>
-	</div>
+<body class="animsition">
+
+	<!-- Header -->
+	<header>
+		<!-- Header desktop -->
+		<div class="container-menu-desktop">
+			<!--
+			<div class="topbar">
+				<div class="content-topbar container h-100">
+					<span style="right: 0;"> Proyecto final Desarrollo web
+						basado en servicios y componentes. </span>
+				</div>
+			</div>
+			-->
+
+			<!--  -->
+			<div class="wrap-logo container">
+				<!-- Logo desktop -->
+				<h1>Películas</h1>
+			</div>
+
+			<!--  -->
+			<div class="wrap-main-nav">
+				<div class="main-nav">
+					<!-- Menu desktop -->
+					<nav class="menu-desktop">
+
+						<ul class="main-menu">
+							<li class="mega-menu-item"><a href="news">Noticias</a>
+							</li>
+
+							<li class="mega-menu-item"><a href="#">Películas
+							</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Post -->
+	<section class="bg0 p-t-70">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-10 col-lg-8">
+					<div class="p-b-20">
+						<!-- Entertainment -->
+						<div class="tab01 p-b-20">
+							<div
+								class="tab01-head how2 how2-cl1 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+								<!-- Brand tab -->
+								<h3 class="f1-m-2 cl12 tab01-title">Películas</h3>
+							</div>
+							<!-- Tab panes -->
+							<div th:if="${lastMovies.isEmpty()}"> No hay películas para mostrar :( </div>
+							<div th:unless="${lastMovies.isEmpty()}" class="tab-content p-t-35">
+							<!-- -->
+								<!-- - -->
+								<div class="tab-pane fade show active" id="tab1-1" role="tabpanel">
+									<div class="row">
+
+										<!-- Izquierda-->
+										<div th:if="${lastMovies.size() > 0}" class="col-sm-6 p-r-25 p-r-15-sr991">
+											<!-- Item post -->	
+											<div class="m-b-30">
+												<a href="" class="wrap-pic-w hov1 trans-03">
+													<img th:src="${lastMovies.get(0).imageURL}" alt="IMG">
+												</a>
+
+												<div class="p-t-20">
+													<h5 class="p-b-5">
+														<p th:text="${lastMovies.get(0).name}" class="f1-m-3 cl2 hov-cl10 trans-03"/>
+														
+													</h5>
+
+													<span class="cl8">
+														
+														<p th:text="${lastMovies.get(0).year}" class="f1-s-3"/>
+														
+													</span>
+												</div>
+											</div>
+										</div>
+
+
+										<!-- 3 derecha-->
+										<div class="col-sm-6 p-r-25 p-r-15-sr991">
+											<!-- Item post -->	
+											<div th:if="${lastMovies.size() > 1}" class="flex-wr-sb-s m-b-30">
+												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03">
+													<img th:src="${lastMovies.get(1).imageURL}" alt="IMG">
+												</a>
+
+												<div class="size-w-2">
+													<h5 class="p-b-5">
+														<p th:text="${lastMovies.get(1).name}" class="f1-s-5 cl3 hov-cl10 trans-03"/>
+													</h5>
+
+													<span class="cl8">
+														
+														<p th:text="${lastMovies.get(1).year}" class="f1-s-3"/>
+													</span>
+												</div>
+											</div>
+											
+											<!-- Item post -->
+											<div  th:if="${lastMovies.size() > 2}" class="flex-wr-sb-s m-b-30">
+												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03">
+													<img th:src="${lastMovies.get(2).imageURL}" alt="IMG">
+												</a>
+
+												<div class="size-w-2">
+													<h5 class="p-b-5">
+														<p th:text="${lastMovies.get(2).name}" class="f1-s-5 cl3 hov-cl10 trans-03"/>
+													</h5>
+
+													<span class="cl8">
+														
+														<p th:text="${lastMovies.get(2).year}" class="f1-s-3"/>
+													</span>
+												</div>
+											</div>
+
+											<!-- Item post -->
+											<div th:if="${lastMovies.size() > 3}" class="flex-wr-sb-s m-b-30">
+												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03">
+													<img th:src="${lastMovies.get(3).imageURL}" alt="IMG">
+												</a>
+
+												<div class="size-w-2">
+													<h5 class="p-b-5">
+														<p th:text="${lastMovies.get(3).name}" class="f1-s-5 cl3 hov-cl10 trans-03"/>
+													</h5>
+
+													<span class="cl8">
+														
+														<p th:text="${lastMovies.get(3).year}" class="f1-s-3"/>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							<!-- -->
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+				<div class="col-md-10 col-lg-4">
+					<div class="p-l-10 p-rl-0-sr991 p-b-20">
+						<!--  -->
+						<div>
+							<div class="how2 how2-cl4 flex-s-c">
+								<h3 class="f1-m-2 cl3 tab01-title">Most Popular</h3>
+							</div>
+
+							<ul class="p-t-35">
+
+								<th:block th:each="bestMovie,iteration : ${bestMovies}">
+									<li class="flex-wr-sb-s p-b-22">
+										<div
+											class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+											<span th:text="${iteration.index+1}"></span>
+										</div> <!--  <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit
+									</a> -->
+										<div class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+											<p th:text="${bestMovie.name} + ' - ' + ${bestMovie.rating}" />
+											<!--  TODO : Añadir icono estrella al final del rating -->
+										</div>
+
+
+									</li>
+								</th:block>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- Búsqueda -->
+			<div class="tab01 p-b-20">
+				<div class="tab01-head how2 how2-cl2 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+					<!-- Brand tab -->
+					<h3 class="f1-m-2 cl13 tab01-title">
+						Búsqueda
+					</h3>
+				</div>
+					
+
+				<!-- Tab panes -->
+				<div class="tab-content p-t-35">
+					<!-- - -->
+					<div class="tab-pane fade show active" id="tab2-1" role="tabpanel">
+						<div class="row">
+							<!-- Izquierda-->
+							<div class="col-sm-6 p-r-25 p-r-15-sr991">
+								
+
+							<!-- Derecha -->
+							</div>
+
+							<div class="col-sm-6 p-r-25 p-r-15-sr991">
+								
+								
+								
+
+								
+							</div>
+						</div>
+					</div>
+
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+<!--  PRUEBA FRAGMENT/REPLACE -->
+<button onClick="search(event);">BOTÓN</button>
+<!-- Results block -->
+<div class="job_listing_area">
+        <div class="container">
+        <div id="searchResult">
+
+        </div>
+        </div>
+        </div>
+        
+	<!-- Footer -->
+	<footer>
+
+		<div class="bg11">
+			<div class="container size-h-4 flex-c-c p-tb-15">
+				<span class="f1-s-1 cl0 txt-center"> <a href="#"
+					class="f1-s-1 cl10 hov-link1"> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Copyright &copy;<script>
+							document.write(new Date().getFullYear());
+						</script> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

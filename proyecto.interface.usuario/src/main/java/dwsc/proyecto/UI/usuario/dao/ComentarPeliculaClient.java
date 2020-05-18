@@ -1,7 +1,5 @@
 package dwsc.proyecto.UI.usuario.dao;
 
-import java.util.List;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,5 +12,5 @@ import dwsc.proyecto.UI.usuario.domain.Comment;
 public interface ComentarPeliculaClient {
 
 	@GetMapping("/insert/{movieID}")
-	ResponseEntity<List<Comment>>getAllMovies(@RequestBody Comment comment, @PathVariable("movieID") Long id);
+	ResponseEntity<?> commentMovie(@RequestBody Comment comment, @PathVariable("movieID") Long id);
 }

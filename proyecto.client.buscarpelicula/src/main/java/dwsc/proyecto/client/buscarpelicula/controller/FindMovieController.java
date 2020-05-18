@@ -58,4 +58,14 @@ public class FindMovieController {
 	public ResponseEntity<List<Movie>> lowRating(@PathVariable("rating")double rating){
 		return ResponseEntity.ok(movieRepo.queryByRatingLow(rating));
 	}
+	
+	@GetMapping(value="/bestMovies/{limit}")
+	public ResponseEntity<List<Movie>> bestMovies(@PathVariable("limit")int limit){
+		return ResponseEntity.ok(movieRepo.queryBestMovies(limit));
+	}
+	
+	@GetMapping(value="/lastMovies/{limit}")
+	public ResponseEntity<List<Movie>> lastMovies(@PathVariable("limit")int limit){
+		return ResponseEntity.ok(movieRepo.queryLastMovies(limit));
+	}
 }
