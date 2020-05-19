@@ -1,9 +1,62 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-<title>Users</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/callController.js}" /></script>
+<title>Gestor</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-<body>
-AA
-</body>
+
+<!--  RESULTS CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/results/style.css}">
+<link rel="stylesheet" th:href="@{/css/results/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/results/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/css/results/magnific-popup.css}">
+<link rel="stylesheet" th:href="@{/css/results/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/results/themify-icons.css}">
+<link rel="stylesheet" th:href="@{/css/results/nice-select.css}">
+<link rel="stylesheet" th:href="@{/css/results/flaticon.css}">
+<link rel="stylesheet" th:href="@{/css/results/gijgo.css}">
+<link rel="stylesheet" th:href="@{/css/results/animate.min.css}">
+<link rel="stylesheet" th:href="@{/css/results/slicknav.css}">
 </head>
+<body>
+<h1>GESTOR</h1>
+
+<div th:if="${#lists.isEmpty(result)}">
+No se han podido cargar los resultados :(
+</div>
+<div class="job_listing_area">
+		<div class="container">
+<div th:unless="${#lists.isEmpty(result)}" class="job_lists">
+			
+                <div th:each="movie : ${result}" class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                
+                                    <img th:href="@{'/gestion/'+${movie.id}}" style="height:82px; width: 82px; display: block; margin-right:10px;" th:src="${movie.imageURL}" alt="">
+                                
+                                <div class="jobs_conetent">
+                                    <a th:href="@{'/gestion/'+${movie.id}}"><h4 th:text="${movie.name}"></h4></a>
+                                    <div class="links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <p th:text="${movie.description}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobs_right">
+                                <div class="apply_now">
+                                    <a th:href="@{'/gestion/'+${movie.id}}" class="boxed-btn3">Gestionar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+</div>
+</div>
+
+</body>
+
 </html>

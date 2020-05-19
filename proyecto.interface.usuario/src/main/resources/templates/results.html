@@ -18,7 +18,7 @@
                                     <img style="height:82px; width: 82px; display: block; margin-right:10px;" th:src="${movie.imageURL}" alt="">
                                 
                                 <div class="jobs_conetent">
-                                    <a href="job_details.html"><h4 th:text="${movie.name}"></h4></a>
+                                    <a th:href="@{'/datosPelicula/'+${movie.id}}"><h4 th:text="${movie.name}"></h4></a><h4 th:text="${movie.name}"></h4></a>
                                     <div class="links_locat d-flex align-items-center">
                                         <div class="location">
                                             <p th:text="${movie.description}"/>
@@ -28,8 +28,8 @@
                             </div>
                             <div class="jobs_right">
                                 <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-comment"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
+                                    
+                                    <a th:href="@{'/datosPelicula/'+${movie.id}}" class="boxed-btn3">Consultar</a>
                                 </div>
                                 <div class="date">
                                     <p th:text="${movie.year}"/>

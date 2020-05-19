@@ -35,20 +35,27 @@
 <!--===============================================================================================-->
 
 <!--  RESULTS CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/css/results/style.css}">
-	<link rel="stylesheet" th:href="@{/css/results/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/results/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/results/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/results/font-awesome.min.css}">
-    <link rel="stylesheet" th:href="@{/css/results/themify-icons.css}">
-    <link rel="stylesheet" th:href="@{/css/results/nice-select.css}">
-    <link rel="stylesheet" th:href="@{/css/results/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/results/gijgo.css}">
-    <link rel="stylesheet" th:href="@{/css/results/animate.min.css}">
-    <link rel="stylesheet" th:href="@{/css/results/slicknav.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/results/style.css}">
+<link rel="stylesheet" th:href="@{/css/results/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/results/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/css/results/magnific-popup.css}">
+<link rel="stylesheet" th:href="@{/css/results/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/results/themify-icons.css}">
+<link rel="stylesheet" th:href="@{/css/results/nice-select.css}">
+<link rel="stylesheet" th:href="@{/css/results/flaticon.css}">
+<link rel="stylesheet" th:href="@{/css/results/gijgo.css}">
+<link rel="stylesheet" th:href="@{/css/results/animate.min.css}">
+<link rel="stylesheet" th:href="@{/css/results/slicknav.css}">
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" th:src="@{/js/callController.js}"/></script>
+<script type="text/javascript" th:src="@{/js/callController.js}" /></script>
+
+<!--  SEARCH CSS -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+	rel="stylesheet" />
+<link rel="stylesheet" th:href="@{/css/search/mainSearch.css}">
+
 
 </head>
 <body class="animsition">
@@ -68,22 +75,18 @@
 
 			<!--  -->
 			<div class="wrap-logo container">
-				<!-- Logo desktop -->
 				<h1>Películas</h1>
 			</div>
 
 			<!--  -->
 			<div class="wrap-main-nav">
 				<div class="main-nav">
-					<!-- Menu desktop -->
 					<nav class="menu-desktop">
 
 						<ul class="main-menu">
-							<li class="mega-menu-item"><a href="news">Noticias</a>
-							</li>
+							<li class="mega-menu-item"><a href="news">Noticias</a></li>
 
-							<li class="mega-menu-item"><a href="#">Películas
-							</a></li>
+							<li class="mega-menu-item"><a href="#">Películas </a></li>
 						</ul>
 					</nav>
 				</div>
@@ -91,110 +94,110 @@
 		</div>
 	</header>
 
-	<!-- Post -->
 	<section class="bg0 p-t-70">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-10 col-lg-8">
 					<div class="p-b-20">
-						<!-- Entertainment -->
 						<div class="tab01 p-b-20">
 							<div
 								class="tab01-head how2 how2-cl1 bocl12 flex-s-c m-r-10 m-r-0-sr991">
-								<!-- Brand tab -->
 								<h3 class="f1-m-2 cl12 tab01-title">Películas</h3>
 							</div>
-							<!-- Tab panes -->
-							<div th:if="${lastMovies.isEmpty()}"> No hay películas para mostrar :( </div>
-							<div th:unless="${lastMovies.isEmpty()}" class="tab-content p-t-35">
-							<!-- -->
-								<!-- - -->
-								<div class="tab-pane fade show active" id="tab1-1" role="tabpanel">
+							<div th:if="${lastMovies.isEmpty()}">No hay películas para
+								mostrar :(</div>
+							<div th:unless="${lastMovies.isEmpty()}"
+								class="tab-content p-t-35">
+								<div class="tab-pane fade show active" id="tab1-1"
+									role="tabpanel">
 									<div class="row">
 
 										<!-- Izquierda-->
-										<div th:if="${lastMovies.size() > 0}" class="col-sm-6 p-r-25 p-r-15-sr991">
-											<!-- Item post -->	
+										<div th:if="${lastMovies.size() > 0}"
+											class="col-sm-6 p-r-25 p-r-15-sr991">
 											<div class="m-b-30">
-												<a href="" class="wrap-pic-w hov1 trans-03">
-													<img th:src="${lastMovies.get(0).imageURL}" alt="IMG">
+												<a href="" class="wrap-pic-w hov1 trans-03"> <img
+													th:src="${lastMovies.get(0).imageURL}" alt="IMG">
 												</a>
 
 												<div class="p-t-20">
 													<h5 class="p-b-5">
-														<p th:text="${lastMovies.get(0).name}" class="f1-m-3 cl2 hov-cl10 trans-03"/>
-														
+														<p th:text="${lastMovies.get(0).name}"
+															class="f1-m-3 cl2 hov-cl10 trans-03" />
+
 													</h5>
 
 													<span class="cl8">
-														
-														<p th:text="${lastMovies.get(0).year}" class="f1-s-3"/>
-														
+
+														<p th:text="${lastMovies.get(0).year}" class="f1-s-3" />
+
 													</span>
 												</div>
 											</div>
 										</div>
 
-
 										<!-- 3 derecha-->
 										<div class="col-sm-6 p-r-25 p-r-15-sr991">
-											<!-- Item post -->	
-											<div th:if="${lastMovies.size() > 1}" class="flex-wr-sb-s m-b-30">
-												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03">
-													<img th:src="${lastMovies.get(1).imageURL}" alt="IMG">
+											<div th:if="${lastMovies.size() > 1}"
+												class="flex-wr-sb-s m-b-30">
+												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03"> <img
+													th:src="${lastMovies.get(1).imageURL}" alt="IMG">
 												</a>
 
 												<div class="size-w-2">
 													<h5 class="p-b-5">
-														<p th:text="${lastMovies.get(1).name}" class="f1-s-5 cl3 hov-cl10 trans-03"/>
+														<p th:text="${lastMovies.get(1).name}"
+															class="f1-s-5 cl3 hov-cl10 trans-03" />
 													</h5>
 
 													<span class="cl8">
-														
-														<p th:text="${lastMovies.get(1).year}" class="f1-s-3"/>
-													</span>
-												</div>
-											</div>
-											
-											<!-- Item post -->
-											<div  th:if="${lastMovies.size() > 2}" class="flex-wr-sb-s m-b-30">
-												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03">
-													<img th:src="${lastMovies.get(2).imageURL}" alt="IMG">
-												</a>
 
-												<div class="size-w-2">
-													<h5 class="p-b-5">
-														<p th:text="${lastMovies.get(2).name}" class="f1-s-5 cl3 hov-cl10 trans-03"/>
-													</h5>
-
-													<span class="cl8">
-														
-														<p th:text="${lastMovies.get(2).year}" class="f1-s-3"/>
+														<p th:text="${lastMovies.get(1).year}" class="f1-s-3" />
 													</span>
 												</div>
 											</div>
 
-											<!-- Item post -->
-											<div th:if="${lastMovies.size() > 3}" class="flex-wr-sb-s m-b-30">
-												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03">
-													<img th:src="${lastMovies.get(3).imageURL}" alt="IMG">
+											<div th:if="${lastMovies.size() > 2}"
+												class="flex-wr-sb-s m-b-30">
+												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03"> <img
+													th:src="${lastMovies.get(2).imageURL}" alt="IMG">
 												</a>
 
 												<div class="size-w-2">
 													<h5 class="p-b-5">
-														<p th:text="${lastMovies.get(3).name}" class="f1-s-5 cl3 hov-cl10 trans-03"/>
+														<p th:text="${lastMovies.get(2).name}"
+															class="f1-s-5 cl3 hov-cl10 trans-03" />
 													</h5>
 
 													<span class="cl8">
-														
-														<p th:text="${lastMovies.get(3).year}" class="f1-s-3"/>
+
+														<p th:text="${lastMovies.get(2).year}" class="f1-s-3" />
+													</span>
+												</div>
+											</div>
+
+											<div th:if="${lastMovies.size() > 3}"
+												class="flex-wr-sb-s m-b-30">
+												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03"> <img
+													th:src="${lastMovies.get(3).imageURL}" alt="IMG">
+												</a>
+
+												<div class="size-w-2">
+													<h5 class="p-b-5">
+														<p th:text="${lastMovies.get(3).name}"
+															class="f1-s-5 cl3 hov-cl10 trans-03" />
+													</h5>
+
+													<span class="cl8">
+
+														<p th:text="${lastMovies.get(3).year}" class="f1-s-3" />
 													</span>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							<!-- -->
+								<!-- -->
 							</div>
 
 
@@ -238,66 +241,60 @@
 			</div>
 			<!-- Búsqueda -->
 			<div class="tab01 p-b-20">
-				<div class="tab01-head how2 how2-cl2 bocl12 flex-s-c m-r-10 m-r-0-sr991">
-					<!-- Brand tab -->
-					<h3 class="f1-m-2 cl13 tab01-title">
-						Búsqueda
-					</h3>
+				<div
+					class="tab01-head how2 how2-cl2 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+					<h3 class="f1-m-2 cl13 tab01-title">Búsqueda</h3>
 				</div>
-					
 
-				<!-- Tab panes -->
 				<div class="tab-content p-t-35">
 					<!-- - -->
 					<div class="tab-pane fade show active" id="tab2-1" role="tabpanel">
 						<div class="row">
 							<!-- Izquierda-->
 							<div class="col-sm-6 p-r-25 p-r-15-sr991">
-								
 
-							<!-- Derecha -->
+								<!-- Derecha -->
 							</div>
 
-							<div class="col-sm-6 p-r-25 p-r-15-sr991">
-								
-								
-								
-
-								
-							</div>
+							<div class="col-sm-6 p-r-25 p-r-15-sr991"></div>
 						</div>
 					</div>
-
-					
 				</div>
 			</div>
 		</div>
 	</section>
 
+	<!-- SEARCH -->
+	<!-- 
+	<form class="form-wrapper cf">
+  	<input type="text" placeholder="Search here..." required>
+	  <button type="submit">Search</button>
+</form>
+-->
 
-<!--  PRUEBA FRAGMENT/REPLACE -->
-<button onClick="search(event);">BOTÓN</button>
-<!-- Results block -->
-<div class="job_listing_area">
-        <div class="container">
-        <div id="searchResult">
+<button onClick="search(event)">Buscar</button>
+	<!-- Results block -->
+	<div class="job_listing_area">
+		<div class="container">
+			<div id="searchResult"></div>
+		</div>
+	</div>
 
-        </div>
-        </div>
-        </div>
-        
+
+	<div id="responseFragment"></div>
 	<!-- Footer -->
 	<footer>
 
 		<div class="bg11">
 			<div class="container size-h-4 flex-c-c p-tb-15">
-				<span class="f1-s-1 cl0 txt-center"> <a href="#"
-					class="f1-s-1 cl10 hov-link1"> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				<span class="f1-s-1 cl0 txt-center"> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						Copyright &copy;<script>
 							document.write(new Date().getFullYear());
 						</script> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
 			</div>
 		</div>
 	</footer>
+	
+		
 </body>
 </html>

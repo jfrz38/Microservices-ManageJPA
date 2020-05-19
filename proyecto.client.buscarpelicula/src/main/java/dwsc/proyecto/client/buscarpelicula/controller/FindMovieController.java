@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +18,17 @@ public class FindMovieController {
 	@Autowired
 	MovieRepository movieRepo;
 	
-	@GetMapping(value="/findOne/{name}", produces= {MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/findById/{id}")
+	public ResponseEntity<Movie> findMovieById(@PathVariable("id") long id){
+		Optional<Movie> movie = movieRepo.findById(id);
+		if(movie.isPresent()) {
+			return ResponseEntity.ok(movie.get());
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@GetMapping(value="/findOne/{name}")
 	public ResponseEntity<Movie> findMovie(@PathVariable("name") String name){
 		Optional<Movie> movie = movieRepo.findByName(name);
 		if(movie.isPresent()) {
@@ -29,12 +38,12 @@ public class FindMovieController {
 		}
 	}
 	
-	@GetMapping(value="/findAllByName/{name}", produces= {MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/findAllByName/{name}")
 	public ResponseEntity<List<Movie>> findAllByName(@PathVariable("name") String name){
 		return ResponseEntity.ok(movieRepo.findAllByName(name));
 	}
 	
-	@GetMapping(value="/findAllByYear/{year}", produces= {MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/findAllByYear/{year}")
 	public ResponseEntity<List<Movie>> findAllByYear(@PathVariable("year") int year){
 		return ResponseEntity.ok(movieRepo.findAllByYear(year));
 	}

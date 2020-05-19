@@ -12,6 +12,9 @@ import dwsc.proyecto.UI.usuario.domain.Movie;
 @FeignClient("BUSCAR-PELICULA-APP")
 public interface BuscarPeliculaClient {
 	
+	@GetMapping("/findById/{id}")
+	ResponseEntity<Movie> findById(@PathVariable("id") long id);
+	
 	@GetMapping("/findAll")
 	ResponseEntity<List<Movie>>getAllMovies();
 	

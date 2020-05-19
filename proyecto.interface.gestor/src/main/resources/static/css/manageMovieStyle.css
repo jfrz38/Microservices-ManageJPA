@@ -1,0 +1,65 @@
+.row.content {
+	background-color: #f1f1f1;
+}
+
+.sidenav {
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+.image {
+	max-width: 340px;
+	max-height: 340px;
+}
+
+.material-icons {
+	vertical-align: middle;
+}
+
+/****** COMENTARIO STENCIL *******/
+.rating {
+	unicode-bidi: bidi-override;
+	direction: rtl;
+	text-align: center;
+}
+
+.rating>span {
+	display: inline-block;
+	position: relative;
+}
+
+.rating>span:hover, .rating>span:hover ~ span {
+	color: transparent;
+}
+
+.rating>span:hover:before, .rating>span:hover ~ span:before {
+	content: "\2605";
+	position: absolute;
+	left: 0;
+	color: gold;
+	cursor: pointer;
+}
+
+span {
+	font-size: 40px;
+	color: #f5f5f5;
+	text-shadow: 0px 5px 5px #000;
+}
+
+.selected {
+	color: gold;
+}
+
+.input-name {
+	width: 70%;
+}
+
+.first-row-margin {
+	margin-top: 20px;
+}

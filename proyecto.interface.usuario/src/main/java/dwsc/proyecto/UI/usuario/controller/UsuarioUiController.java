@@ -165,15 +165,7 @@ public class UsuarioUiController {
 	}
 
 
-	@GetMapping("/guests")
-	public String showGuestList(Map<String, List<Movie>> model) {
-		System.out.println("Entra guests");
-		
-		//Importante: La key del mapa es result
-	    model.put("result", buscarPelicula.getBestMovies(5).getBody());
-	    System.out.println("Model = "+model.toString());
-	    return "results :: searchResult";
-	}
+	
 	
 	@PostMapping("/comment/{id}")
 	public String commentMovie(Map<String, Comment> model, @RequestBody Comment comment, @PathVariable("id") long id) {
@@ -181,6 +173,38 @@ public class UsuarioUiController {
 		ResponseEntity<?> response = comentarPelicula.commentMovie(comment, id);
 		
 		return "usuarioUI";
+	}
+	
+	@GetMapping("/datosPelicula/{id}")
+	public String dataMovie(Map<String, Object> model, @PathVariable("id") long id) {
+	
+		ResponseEntity<Movie> response = buscarPelicula.findById(id);
+		try {
+			if(response.getStatusCodeValue()==200) {
+				System.out.println("Devuelve 200 = "+response.getBody().getName());
+				model.put("movie",response.getBody());
+				return "consultarPelicula";
+			}else {
+				model.put("response",false);
+				model.put("textResponse", "No se ha podido acceder a la película");
+				return "response :: responseFragment";
+			}
+			
+		}catch(Exception e){
+			model.put("response",false);
+			model.put("textResponse", "No se ha podido acceder a la película");
+			return "response :: responseFragment";
+		}
+		
+	}
+	
+	
+	@GetMapping("/pruebaBusqueda")
+	public String pruebaBusqueda(Map<String, List<Movie>> model) {		
+		//Importante: La key del mapa es result
+	    model.put("result", buscarPelicula.getBestMovies(5).getBody());
+	    System.out.println("Model = "+model.toString());
+	    return "results :: searchResult";
 	}
 	
 }

@@ -1,5 +1,6 @@
 function search(evt)
 {
-	var url = '/guests';
+	console.log("Entra")
+	var url = '/pruebaBusqueda';
     $("#searchResult").load(url);
 }
