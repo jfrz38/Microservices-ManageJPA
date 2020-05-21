@@ -36,94 +36,6 @@ public class ServletImpl extends HttpServlet {
 	/** The buffer impl. */
 	static Buffer bufferImpl;
 
-	/**
-	 * Realiza la accion de [Leer]. Recibe un documento XML del obejto CORBA y
-	 * devuelve el valor de los elementos <email> y <elemento> del documento XML que
-	 * obtenemos del objeto CORBA.
-	 * 
-	 * @param out Donde se escribira la respuesta de la accion.
-	 */
-	protected void actionLeer(java.io.PrintWriter out) {
-		String shortDesc = null;
-		String largeDesc = null;
-		String date = null;
-		int nelementos = -1;
-
-		try {
-			getreference();
-
-			StringHolder aux = new StringHolder();
-			// System.out.println("aux = "+aux.toString());
-			boolean estado = bufferImpl.read(aux);
-
-			if (estado) {
-				List<Noticia> mensajesLeidos = new ArrayList<Noticia>();
-				mensajesLeidos = XMLDecoder.decodeXML(aux.value, 1);
-				nelementos = bufferImpl.num_elementos();
-
-				if (aux.value.compareTo("null") == 0)
-					throw new Exception("No se ha podido leer el elemento del buffer.");
-
-				/*
-				 * for(Noticia noticia : mensajesLeidos){ shortDesc =
-				 * noticia.getShortDescription(); largeDesc = noticia.getLargeDescription();
-				 * date = noticia.getDate(); printResultado(out, "<font color='#2EFE64'>short: "
-				 * + shortDesc+";large:"+largeDesc+"; date = "+date); }
-				 */
-				shortDesc = mensajesLeidos.get(0).getShortDescription();
-				largeDesc = mensajesLeidos.get(0).getLargeDescription();
-				date = mensajesLeidos.get(0).getDate();
-				printResultado(out,
-						"<font color='#2EFE64'>short: " + shortDesc + ";large:" + largeDesc + "; date = " + date);
-			} else {
-				printResultado(out, "<font color='#DF0101'>" + aux.value);
-			}
-
-		} catch (Exception e) {
-			printResultado(out, "<font color='#DF0101'>" + e.getMessage());
-		}
-
-	}
-
-	/**
-	 * Realiza la accion de [Recibir]. Recibe un documento XML del obejto CORBA y
-	 * devuelve el valor de los elementos <email> y <elemento> del documento XML que
-	 * obtenemos del objeto CORBA.
-	 * 
-	 * @param out Donde se escribira la respuesta de la accion.
-	 */
-	protected void actionRecibir(java.io.PrintWriter out) {
-		String shortDesc = null;
-		String largeDesc = null;
-		String date = null;
-		int nelementos = -1;
-		try {
-			getreference();
-			StringHolder aux = new StringHolder();
-			boolean estado = bufferImpl.get(aux);
-			if (estado) {
-				List<Noticia> mensajesLeidos = new ArrayList<Noticia>();
-				mensajesLeidos = XMLDecoder.decodeXML(aux.value, 1);
-				nelementos = bufferImpl.num_elementos();
-
-				if (aux.value.compareTo("null") == 0)
-					throw new Exception("No se ha podido sacar el elemento del buffer.");
-
-				nelementos = bufferImpl.num_elementos();
-				shortDesc = mensajesLeidos.get(0).getShortDescription();
-				largeDesc = mensajesLeidos.get(0).getLargeDescription();
-				date = mensajesLeidos.get(0).getDate();
-				printResultado(out,
-						"<font color='#2EFE64'>short: " + shortDesc + ";large:" + largeDesc + "; date = " + date);
-			} else {
-				printResultado(out, "<font color='#DF0101'>" + aux.value);
-			}
-		} catch (Exception e) {
-			printResultado(out, "<font color='#DF0101'>" + e.getMessage());
-		}
-
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -135,62 +47,23 @@ public class ServletImpl extends HttpServlet {
 
 		/*************
 		 * CONSUMIDOR *
-		 *************/
-
-		System.out.println("Entra doGet");
-		request.setAttribute("message", "hello");
-		request.getRequestDispatcher("/noticias.jsp").forward(request, response);
-		if(true) return;
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		String fileUrl = request.getServletContext().getRealPath("/");
-		InputStream xsdUrl = getClass().getClassLoader().getResourceAsStream("../noticias.xsd");
-		
-		if (Validator.validate(fileUrl + "noticias.xml", xsdUrl) && XMLCoder.validate(fileUrl + "noticias.xml")) {
-			try {
-				getreference();
-
-				List<Noticia> noticias = XMLDecoder.decodeXML(fileUrl);// ), "noticias");
-				System.out.println("Noticias = ");
-				for (Noticia n : noticias) {
-					System.out.println("n = " + n.getShortDescription() + " ; " + n.getLargeDescription());
-				}
-				RequestDispatcher dispatcher = request.getRequestDispatcher("noticias.jsp");
-				request.setAttribute("noticias", noticias);
-				dispatcher.forward(request, response);
-
-			} catch (Exception e) {
-				List<Noticia> noticias = new ArrayList<Noticia>();
-				RequestDispatcher dispatcher = request.getRequestDispatcher("noticias.jsp");
-				request.setAttribute("noticias", noticias);
-				dispatcher.forward(request, response);
-
-				out.println("Error al obtener la noticia");
-			}
-
-		} else {
+		 *************/		
+		try {
+			getreference();
+			StringHolder aux = new StringHolder();
 			List<Noticia> noticias = new ArrayList<Noticia>();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("playerNews.jsp");
-			request.setAttribute("noticias", noticias); // set your String value in the attribute
-			dispatcher.forward(request, response);
-
-			out.println("Error en la validación del documento");
+			while(bufferImpl.get(aux)) {
+				Noticia noticia = XMLDecoder.decodeSingleXML(aux.value);
+				noticias.add(noticia);
+			}
+			
+			request.setAttribute("noticias", noticias);
+			request.getRequestDispatcher("noticias.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			request.setAttribute("noticias", new ArrayList<Noticia>());
+			request.getRequestDispatcher("noticias.jsp").forward(request, response);
 		}
-
-		out.println("</body></html>");
-
-		/*
-		 * try { response.setContentType("text/html");
-		 * 
-		 * java.io.PrintWriter out=response.getWriter();
-		 * 
-		 * 
-		 * out.println("<HTML>"); out.println("<HEAD>"); out.println("</HEAD>");
-		 * out.println("<BODY>");
-		 * out.println("Error! Los parametros no han sido enviados por el metodo POST");
-		 * out.println("</BODY>"); out.println("</HTML>"); } catch (Exception e) {
-		 * e.printStackTrace(); }
-		 */
 
 	}
 
@@ -206,7 +79,7 @@ public class ServletImpl extends HttpServlet {
 		/*************
 		 * PRODUCTOR *
 		 *************/
-
+		
 		if (req.getParameter("action").compareTo("Crear noticia") != 0) {
 			// Aquí no debería entrar nunca; pero si llega el post por otra acción
 			// que no sea el botón del formulario no se permite insertar el objeto
@@ -317,39 +190,4 @@ public class ServletImpl extends HttpServlet {
 		bufferImpl = BufferHelper.narrow(ncRef.resolve_str(name));
 	}
 
-
-	/**
-	 * Escribe en la salida especificada la cabecera de respuesta en formato HTML.
-	 * 
-	 * @param out Indica donde se va a escribir la respuesta.
-	 */
-	private void printHeader(java.io.PrintWriter out) {
-
-		out.println(
-				"<html><head><meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'><meta name='Author' content='Luis Iribarne'><meta name='Description' content='University of Almeria (Spain)'><title>Prototipo HTML para el Productor-Consumidor</title></head>");
-		out.println(
-				"<body style='color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);' alink='#990000' link='#043a66' vlink='#999900'><dl>");
-		out.println(
-				"<table nosave='' border='0' cellspacing='5' width='98%'><tbody><tr nosave='' valign='top'><td nosave='' width='100%'><blockquote> </blockquote><center> <b> <font face='Arial,Helvetica'><font color='#660000'><font size='+1'> Registrar Noticia: </font></font></font></b></center><br>");
-
-	}
-
-	/**
-	 * Muestra un mensaje con el resultado de la operacion que se esta ejecutando.
-	 * 
-	 * @param out       Indica donde se escribe la respuesta.
-	 * @param resultado Cadena de caracteres con el mensaje del resultado de la
-	 *                  operacion.
-	 */
-	private void printResultado(PrintWriter out, String resultado) {
-
-		System.out.println("out = " + out);
-		out.print("");
-		printHeader(out);
-		// printForm(out, "", "", bufferImpl.num_elementos());
-		// printActions(out);
-		out.println(
-				"<tr><td><br><center><font face='Arial,Helvetica'>" + resultado + "</font></font></center></td></tr>");
-
-	}
 }

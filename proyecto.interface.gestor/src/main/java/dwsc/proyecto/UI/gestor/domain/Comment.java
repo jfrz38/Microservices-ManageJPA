@@ -17,6 +17,7 @@ public class Comment {
 
 	private Movie movie;
 	
+	
 	public String getAuthorName() {
 		return authorName;
 	}

@@ -9,6 +9,11 @@ import BufferApp._BufferImplBase;
  */
 class BufferImpl extends _BufferImplBase {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The orb. */
 	private ORB orb;
 	
@@ -53,14 +58,14 @@ class BufferImpl extends _BufferImplBase {
 	// implementa el metodo get()
 	public boolean get(org.omg.CORBA.StringHolder elemento) {
 		int i;
-		if (elementos >= 3) {
-			elemento.value = buf[0];
-			for (i = 0; i < maxElementos - 1; i++)
-				buf[i] = buf[i + 1];
-			elementos--;
-			return true;
+		if(elementos!=0) {
+            elemento.value=buf[0];
+            for(i=0;i<maxElementos-1;i++)
+                 buf[i]=buf[i+1];
+            elementos--;
+           return true;
 		} else {
-			elemento.value = "No se puede recibir hasta que no haya mas de 3 mensajes";
+			elemento.value = "No hay noticias para mostrar";
 			return false;
 		}
 	}

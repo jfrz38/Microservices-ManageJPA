@@ -1,6 +1,6 @@
 package dwsc.proyecto.UI.usuario.controller;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -51,53 +51,23 @@ public class UsuarioUiController {
 		return "usuarioUI";
 	}
 
-	/*@GetMapping("/movies")
-	public String getAllMovies(Map<String, List<Movie>> model) {
-		List<Movie> movies = new ArrayList<Movie>();
-
-		try {
-			movies.addAll(buscarPelicula.getAllMovies().getBody());
-		} catch (Exception e) {
-			System.err.println("ERROR : " + e.getMessage());
-		}
-		System.out.println("id 1 = " + movies.get(0).getId());
-		for (Movie m : movies) {
-			System.out.println("movie = " + m.getName());
-		}
-		// TODO
-		return "usuarioUI";
-	}*/
-
-	/*@GetMapping("/movieByName/{name}")
-	public String searchMovieByName(Map<String, List<Movie>> model, @PathVariable String name) {
-		// Movie movie = new Movie();
-		try {
-			ResponseEntity<List<Movie>> response = buscarPelicula.getByName(name);
-			if (response.getStatusCodeValue() == 404) {
-				// movie = null;
-			} else {
-				// movie = response.getBody();
-				// System.out.println("Movie = "+movie.getName());
-			}
-		} catch (Exception e) {
-			System.err.println("ERROR : " + e.getMessage());
-		}
-
-		return "usuarioUI";
-	}*/
-
 	@GetMapping("/moviesByName/{name}")
-	public String searchMoviesByName(Map<String, List<Movie>> model, @PathVariable String name) {
-		//List<Movie> movies = new ArrayList<Movie>();
+	public String searchMoviesByName(Map<String, Object> model, @PathVariable String name) {
+		// List<Movie> movies = new ArrayList<Movie>();
 		try {
 			ResponseEntity<List<Movie>> response = buscarPelicula.getAllByName(name);
-			if (response.getStatusCodeValue() == 404) {
+			if (response.getStatusCodeValue() == 200) {
 				// movies = new ArrayList<Movie>();;
+				model.put("result", response.getBody());
 			} else {
-				model.put("result",response.getBody());
+				model.put("response", false);
+				model.put("textResponse", "No se ha encontrado ninguna película");
+				return "response :: responseFragment";
 			}
 		} catch (Exception e) {
-			System.err.println("ERROR : " + e.getMessage());
+			model.put("response", false);
+			model.put("textResponse", "Ha ocurrido un error");
+			return "response :: responseFragment";
 		}
 
 		return "results :: searchResult";
@@ -106,31 +76,39 @@ public class UsuarioUiController {
 	@GetMapping("/nameContains/{name}")
 	public String searchMoviesByNameContains(Map<String, List<Movie>> model, @PathVariable String name) {
 		ResponseEntity<List<Movie>> response = buscarPelicula.getByNameContains(name);
-		model.put("result",response.getBody());
+		model.put("result", response.getBody());
 		return "results :: searchResult";
 	}
 
-	@GetMapping("/moviesByYear/{year}")
-	public String searchMoviesByYear(Map<String, List<Movie>> model, @PathVariable int year) {
-		List<Movie> movies = new ArrayList<Movie>();
+	@GetMapping("/moviesByYear/{option}/{year}")
+	public String searchMoviesByYear(Map<String, Object> model, @PathVariable("option") String option,
+			@PathVariable int year) {
 		try {
-			ResponseEntity<List<Movie>> response = buscarPelicula.getAllByYear(year);
-			if (response.getStatusCodeValue() == 404) {
-				// movies = new ArrayList<Movie>();;
+			ResponseEntity<List<Movie>> response = null;
+			if (option.equals("high")) {
+				response = buscarPelicula.greatYear(year);
+			} else if (option.equals("low")) {
+				response = buscarPelicula.lowYear(year);
 			} else {
-				movies = response.getBody();
-				for (Movie m : movies) {
-					System.out.println("movie = " + m.getName());
-				}
+				model.put("response", false);
+				model.put("textResponse", "No se han podido realizar la búsqueda");
+				return "response :: responseFragment";
 			}
-			
-			model.put("result",response.getBody());
+
+			if (response.getStatusCodeValue() == 200) {
+				model.put("result", response.getBody());
+				return "results :: searchResult";
+			} else {
+				model.put("response", false);
+				model.put("textResponse", "No se han podido realizar la búsqueda");
+				return "response :: responseFragment";
+			}
 		} catch (Exception e) {
-			System.err.println("ERROR : " + e.getMessage());
+			model.put("response", false);
+			model.put("textResponse", "No se han podido realizar la búsqueda");
+			return "response :: responseFragment";
 		}
 
-		
-		return "results :: searchResult";
 	}
 
 	@GetMapping("/moviesByRate/{option}/{rating}")
@@ -144,8 +122,8 @@ public class UsuarioUiController {
 		} else {
 			// error
 		}
-		
-		model.put("result",response.getBody());
+
+		model.put("result", response.getBody());
 		return "results :: searchResult";
 	}
 
@@ -164,47 +142,73 @@ public class UsuarioUiController {
 		return buscarPelicula.getLastMovies(4);
 	}
 
-
-	
-	
 	@PostMapping("/comment/{id}")
-	public String commentMovie(Map<String, Comment> model, @RequestBody Comment comment, @PathVariable("id") long id) {
-		Comment a = model.get("comment");
-		ResponseEntity<?> response = comentarPelicula.commentMovie(comment, id);
+	public String commentMovie(Map<String, Object> model, @RequestBody Comment comment, @PathVariable("id") long id) {
+
+		comment.setDate(new Date());
+		comment.setMovie(new Movie());
+		try {
+			ResponseEntity<?> response = comentarPelicula.commentMovie(comment, id);
+			if(response.getStatusCodeValue()==200) {
+				model.put("response", true);
+				model.put("textResponse", "Comentario añadido con éxito");
+				return "response :: responseFragment";
+			}else {
+				System.out.println("4");
+				model.put("response", false);
+				model.put("textResponse", "No se ha podido añadir el comentario");
+				return "response :: responseFragment";
+			}
+		} catch (Exception e) {
+			System.out.println("error = "+e.getMessage());
+			model.put("response", false);
+			model.put("textResponse", "No se ha podido añadir el comentario");
+			return "response :: responseFragment";
+		}
+
 		
-		return "usuarioUI";
 	}
-	
+
 	@GetMapping("/datosPelicula/{id}")
 	public String dataMovie(Map<String, Object> model, @PathVariable("id") long id) {
-	
 		ResponseEntity<Movie> response = buscarPelicula.findById(id);
 		try {
-			if(response.getStatusCodeValue()==200) {
-				System.out.println("Devuelve 200 = "+response.getBody().getName());
-				model.put("movie",response.getBody());
+			if (response.getStatusCodeValue() == 200) {
+				model.put("movie", response.getBody());
 				return "consultarPelicula";
-			}else {
-				model.put("response",false);
+			} else {
+				model.put("response", false);
 				model.put("textResponse", "No se ha podido acceder a la película");
 				return "response :: responseFragment";
 			}
-			
-		}catch(Exception e){
-			model.put("response",false);
+
+		} catch (Exception e) {
+			model.put("response", false);
 			model.put("textResponse", "No se ha podido acceder a la película");
 			return "response :: responseFragment";
 		}
-		
+
 	}
-	
-	
+
 	@GetMapping("/pruebaBusqueda")
-	public String pruebaBusqueda(Map<String, List<Movie>> model) {		
-		//Importante: La key del mapa es result
-	    model.put("result", buscarPelicula.getBestMovies(5).getBody());
-	    System.out.println("Model = "+model.toString());
-	    return "results :: searchResult";
+	public String pruebaBusqueda(Map<String, List<Movie>> model) {
+		// Importante: La key del mapa es result
+		model.put("result", buscarPelicula.getBestMovies(5).getBody());
+		return "results :: searchResult";
 	}
-	
+
+	@GetMapping("/error")
+	public String setError(Map<String, Object> model) {
+		model.put("response", false);
+		model.put("textResponse", "Ha ocurrido un error");
+		return "response :: responseFragment";
+	}
+
+	@GetMapping("/error/{error}")
+	public String setSpecifiedError(Map<String, Object> model, @PathVariable("error") String error) {
+		model.put("response", false);
+		model.put("textResponse", "Ha ocurrido un error: " + error);
+		return "response :: responseFragment";
+	}
+
 }

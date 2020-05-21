@@ -118,4 +118,39 @@ public class XMLDecoder {
 		return new ArrayList<Noticia>();   
 	}
 	
+	public static Noticia decodeSingleXML(String xml) {
+		try {
+	          
+	          DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+	          InputSource is = new InputSource();
+	          is.setCharacterStream(new StringReader(xml));
+	          Document doc = db.parse(is);
+	          doc.getDocumentElement().normalize();
+	          NodeList nList = doc.getElementsByTagName("noticia");
+	          Noticia salida = new Noticia("","","");
+	            Node nNode = nList.item(0);
+	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	                    Element eElement = (Element) nNode;
+	                    
+	                    if(eElement.getElementsByTagName("shortDescription").getLength() == 0) throw new Exception("Falta el elemento shortDescription");
+	                    if(eElement.getElementsByTagName("largeDescription").getLength() == 0) throw new Exception("Falta el elemento largeDescription");
+	                    if(eElement.getElementsByTagName("date").getLength() == 0) throw new Exception("Falta el elemento date");
+	                    
+	                    Noticia tempMensaje = new Noticia(eElement.getElementsByTagName("shortDescription").item(0).getTextContent(),
+	                    		eElement.getElementsByTagName("largeDescription").item(0).getTextContent(),
+	                    		eElement.getElementsByTagName("date").item(0).getTextContent());
+	                    salida = tempMensaje;
+	             }
+	         
+	         return salida;
+	       } catch (SAXParseException e) {
+	    	  
+	    	   System.out.println("\nERROR!!!!: Tag mal formado");
+	    	   		
+	       }  catch (Exception e) {
+	    	   
+	    	   System.out.println("\nERROR!!!!: "+e.getMessage());
+	       }
+		return new Noticia("","","");
+	}
 }

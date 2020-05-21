@@ -77,4 +77,14 @@ public class FindMovieController {
 	public ResponseEntity<List<Movie>> lastMovies(@PathVariable("limit")int limit){
 		return ResponseEntity.ok(movieRepo.queryLastMovies(limit));
 	}
+	
+	@GetMapping(value="/yearGreat/{year}")
+	public ResponseEntity<List<Movie>> greatYear(@PathVariable("year") int year){
+		return ResponseEntity.ok(movieRepo.queryByYearGreat(year));
+	}
+	
+	@GetMapping(value="/yearLow/{year}")
+	public ResponseEntity<List<Movie>> lowYear(@PathVariable("year") int year){
+		return ResponseEntity.ok(movieRepo.queryByYearLow(year));
+	}
 }

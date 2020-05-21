@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-//@XmlRootElement
 @Entity
 public class Movie {
 
@@ -34,6 +33,14 @@ public class Movie {
 	
 	@OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Comment> comments;
+	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id=id;
+	}
 	
 	public String getName() {
 		return name;

@@ -33,7 +33,8 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
 <!--===============================================================================================-->
-
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
 <!--  RESULTS CSS -->
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/results/style.css}">
@@ -52,10 +53,22 @@
 <script type="text/javascript" th:src="@{/js/callController.js}" /></script>
 
 <!--  SEARCH CSS -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700}"
 	rel="stylesheet" />
 <link rel="stylesheet" th:href="@{/css/search/mainSearch.css}">
+<!--<script th:src="@{/searchBar/dist/search-bar.js}"></script> -->
 
+<script type="module" th:src="@{/searchBar/build/search-bar.esm.js}"></script>
+<script nomodule th:src="@{/searchBar/build/search-bar.js}"></script>
+
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+	rel="stylesheet" type="text/css" />
+
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body class="animsition">
@@ -116,15 +129,16 @@
 										<div th:if="${lastMovies.size() > 0}"
 											class="col-sm-6 p-r-25 p-r-15-sr991">
 											<div class="m-b-30">
-												<a href="" class="wrap-pic-w hov1 trans-03"> <img
+												<a th:href="'/datosPelicula/'+${lastMovies.get(0).id}" class="wrap-pic-w hov1 trans-03"> <img
 													th:src="${lastMovies.get(0).imageURL}" alt="IMG">
 												</a>
 
 												<div class="p-t-20">
 													<h5 class="p-b-5">
+														<a th:ref="'/datosPelicula/'+${lastMovies.get(0).id}">
 														<p th:text="${lastMovies.get(0).name}"
 															class="f1-m-3 cl2 hov-cl10 trans-03" />
-
+														</a>
 													</h5>
 
 													<span class="cl8">
@@ -181,15 +195,12 @@
 												<a href="" class="size-w-1 wrap-pic-w hov1 trans-03"> <img
 													th:src="${lastMovies.get(3).imageURL}" alt="IMG">
 												</a>
-
 												<div class="size-w-2">
 													<h5 class="p-b-5">
 														<p th:text="${lastMovies.get(3).name}"
 															class="f1-s-5 cl3 hov-cl10 trans-03" />
 													</h5>
-
 													<span class="cl8">
-
 														<p th:text="${lastMovies.get(3).year}" class="f1-s-3" />
 													</span>
 												</div>
@@ -197,21 +208,16 @@
 										</div>
 									</div>
 								</div>
-								<!-- -->
 							</div>
-
-
 						</div>
-
 					</div>
-
 				</div>
 				<div class="col-md-10 col-lg-4">
 					<div class="p-l-10 p-rl-0-sr991 p-b-20">
 						<!--  -->
 						<div>
 							<div class="how2 how2-cl4 flex-s-c">
-								<h3 class="f1-m-2 cl3 tab01-title">Most Popular</h3>
+								<h3 class="f1-m-2 cl3 tab01-title">Mayor rating</h3>
 							</div>
 
 							<ul class="p-t-35">
@@ -221,22 +227,16 @@
 										<div
 											class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
 											<span th:text="${iteration.index+1}"></span>
-										</div> <!--  <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit
-									</a> -->
+										</div>
 										<div class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
 											<p th:text="${bestMovie.name} + ' - ' + ${bestMovie.rating}" />
-											<!--  TODO : Añadir icono estrella al final del rating -->
+											<!-- <i class="material-icons">&#xe838;</i> -->
 										</div>
-
-
 									</li>
 								</th:block>
-
 							</ul>
 						</div>
 					</div>
-
 				</div>
 			</div>
 			<!-- Búsqueda -->
@@ -259,9 +259,18 @@
 							<div class="col-sm-6 p-r-25 p-r-15-sr991"></div>
 						</div>
 					</div>
+					<my-search-bar></my-search-bar>
+					<!-- Results block -->
+					<div class="job_listing_area">
+						<div id="responseFragment"></div>
+						<div class="container">
+							<div id="searchResult"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+
 	</section>
 
 	<!-- SEARCH -->
@@ -272,29 +281,23 @@
 </form>
 -->
 
-<button onClick="search(event)">Buscar</button>
-	<!-- Results block -->
-	<div class="job_listing_area">
-		<div class="container">
-			<div id="searchResult"></div>
-		</div>
-	</div>
 
 
-	<div id="responseFragment"></div>
+
+
 	<!-- Footer -->
 	<footer>
 
 		<div class="bg11">
 			<div class="container size-h-4 flex-c-c p-tb-15">
 				<span class="f1-s-1 cl0 txt-center"> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;<script>
-							document.write(new Date().getFullYear());
-						</script> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
+					Copyright &copy;<script>
+						document.write(new Date().getFullYear());
+					</script> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
 			</div>
 		</div>
 	</footer>
-	
-		
+
+
 </body>
 </html>

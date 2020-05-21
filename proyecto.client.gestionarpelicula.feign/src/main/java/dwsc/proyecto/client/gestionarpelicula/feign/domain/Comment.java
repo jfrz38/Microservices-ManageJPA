@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-//@XmlRootElement
 @Entity
 public class Comment {
 
@@ -35,6 +34,14 @@ public class Comment {
 	@JoinColumn(name = "movie_id", nullable = false)
 	@JsonBackReference
 	private Movie movie;
+	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id=id;
+	}
 	
 	public String getAuthorName() {
 		return authorName;

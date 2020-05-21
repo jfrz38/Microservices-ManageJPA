@@ -41,4 +41,10 @@ public interface BuscarPeliculaClient {
 	
 	@GetMapping("/lastMovies/{limit}")
 	ResponseEntity<List<Movie>> getLastMovies(@PathVariable("limit") int limit);
+	
+	@GetMapping("/yearGreat/{year}")
+	ResponseEntity<List<Movie>> greatYear(@PathVariable("year") int year);
+	
+	@GetMapping("/yearLow/{year}")
+	ResponseEntity<List<Movie>> lowYear(@PathVariable("year") int year);
 }

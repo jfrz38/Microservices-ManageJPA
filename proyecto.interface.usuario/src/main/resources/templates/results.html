@@ -8,9 +8,12 @@
     
 </head>
  <body>
-<div th:fragment="searchResult" th:unless="${#lists.isEmpty(result)}" class="job_lists">
+<div th:fragment="searchResult" class="job_lists">
 			
-                <div th:each="movie : ${result}" class="row">
+			<div th:if="${#lists.isEmpty(result)}">
+			No se ha encontrado ninguna película :(
+			</div>
+                <div th:unless="${#lists.isEmpty(result)}" th:each="movie : ${result}" class="row">
                     <div class="col-lg-12 col-md-12">
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">

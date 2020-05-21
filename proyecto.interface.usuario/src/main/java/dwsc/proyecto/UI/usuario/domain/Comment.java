@@ -17,6 +17,7 @@ public class Comment {
 
 	private Movie movie;
 	
+	
 	public String getAuthorName() {
 		return authorName;
 	}
@@ -47,6 +48,7 @@ public class Comment {
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+		if(movie.getComments()==null) return;
 		movie.getComments().add(this);
 		movie.addRating(rating);
 	}
