@@ -27,14 +27,18 @@ public class GestionarPeliculaController {
 
 	@PostMapping("/insert")
 	public ResponseEntity<Movie> insertMovie(@RequestBody Movie movie) throws Exception {
-		
-		ResponseEntity<String> response = verificarDatos.getData(movie.getName(),movie.getYear());//.getData(movie);//(movie.getName());
-		if (response.getStatusCode().equals(HttpStatus.OK)) {
-			movie.setImageURL(response.getBody());
-			return insertIntoDB(movie);
-		} else {
+		try {
+			ResponseEntity<String> response = verificarDatos.getData(movie.getName(),movie.getYear());//.getData(movie);//(movie.getName());
+			if (response.getStatusCodeValue() == 200) {
+				if(movie.getImageURL().equals(""))movie.setImageURL(response.getBody());
+				return insertIntoDB(movie);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		}catch(Exception e) {
 			return ResponseEntity.notFound().build();
 		}
+		
 	}
 
 	public ResponseEntity<Movie> insertIntoDB(Movie movie) {
@@ -59,13 +63,16 @@ public class GestionarPeliculaController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Movie> updateMovie(@RequestBody Movie updateMovie, @PathVariable("id") Long id){
 		Optional<Movie> optionMovie = movieRepo.findById(id);
-		
 		if(optionMovie.isPresent()) {
 			Movie movie = optionMovie.get();
-			if(!updateMovie.getName().equals(""))movie.setName(updateMovie.getName());
+			/*if(!updateMovie.getName().equals(""))movie.setName(updateMovie.getName());
 			if(!updateMovie.getDescription().equals(""))movie.setDescription(updateMovie.getDescription());
 			if(!updateMovie.getImageURL().equals(""))movie.setImageURL(updateMovie.getImageURL());
-			if(updateMovie.getYear()!=0)movie.setYear(updateMovie.getYear());
+			if(updateMovie.getYear()!=0)movie.setYear(updateMovie.getYear());*/
+			movie.setName(updateMovie.getName());
+			movie.setDescription(updateMovie.getDescription());
+			movie.setImageURL(updateMovie.getImageURL());
+			movie.setYear(updateMovie.getYear());
 			movieRepo.save(movie);
 			return ResponseEntity.ok(movie);
 		}else {

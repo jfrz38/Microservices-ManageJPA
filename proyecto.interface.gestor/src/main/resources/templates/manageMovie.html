@@ -1,18 +1,140 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" th:src="@{/js/main.js}" /></script>
-<title>Create movie</title>
+<script type="text/javascript" th:src="@{/js/manageController.js}" /></script>
+<title>Manage movie</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/manageMovieStyle.css}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+<!-- SNACKBAR -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/snackbar/snackbarStyle.css}">
+
 </head>
 <body>
-<button th:onclick="|manageMovie('${movie.id}')|" >manageMovie</button>
 
-<button th:onclick="|deleteMovie('${movie.id}')|" >Delete</button>
+	<div>
+		<i style="display: inline-block; font-size: 48px"
+			onclick="window.history.back()" class="material-icons">&#xe5c4;</i>
+		<h1 style="display: inline-block; text-align: center;">Editar
+			datos</h1>
+	</div>
 
-<button onclick="window.history.back()">Back</button>
 
-<div id="responseFragment"></div>
+	<div class="container-fluid" style="width: 100%;">
+
+		<!-- Datos de la película -->
+		<div class="row content">
+			<!-- IZQUIERDA -->
+			<div style="margin: 10px;">
+				<div class="col-sm-3 sidenav">
+					<div>
+						<img class="image" th:src="${movie.imageURL}">
+					</div>
+
+				</div>
+
+				<!-- DERECHA -->
+				<div class="col-sm-9">
+					<div>
+						<i class="material-icons">&#xe88f;</i>Título <input class="w3-input"
+							id="name-input" th:value="${movie.name}"></input>
+					</div>
+					<hr style="border: 1px solid black;">
+					<div>
+						<i class="material-icons">&#xe8df;</i>Año: <input class="w3-input" id="year-input"
+							type="number" th:value="${movie.year}"></input>
+					</div>
+					<hr style="border: 1px solid black;">
+					<div>
+						<i class="material-icons" style='font-size: 24px'>&#xe83a;</i>Rating:
+						<h4 th:text="|${movie.rating}/5.0|"></h4>
+					</div>
+					<hr style="border: 1px solid black;">
+					<div>
+						<i class="material-icons">&#xe873;</i>Descripción: <input class="w3-input"
+							id="description-input" th:value="${movie.description}"></input>
+					</div>
+					<hr style="border: 1px solid black;">
+					<div>
+						<i style='font-size:24px' class='fas'>&#xf030;</i> Imagen: <input class="w3-input" id="image-input"
+							th:value="${movie.imageURL}"></input>
+					</div>
+					<hr style="border: 1px solid black;">
+					<div class="buttons-options">
+						<button class="cancel-button" onclick="window.history.back()">Cancelar</button>
+						<button class="save-button"
+							th:onclick="|saveMovie('${movie.id}')|">Aceptar</button>
+						<button class="delete-button"
+							th:onclick="|deleteMovie('${movie.id}')|">Eliminar</button>
+					</div>
+					
+				</div>
+
+			</div>
+
+
+
+
+		</div>
+
+		<hr>
+		<div id="responseFragment"></div>
+		
+		<!-- COMENTARIOS -->
+		<p>
+			<span class="badge" th:text="${movie.comments.size()}"></span>
+			Comentarios:
+		</p>
+		<br>
+		<div class="row">
+
+			<div th:each="comment : ${movie.comments}">
+
+				<div class="col-sm-2 text-center">
+					<button class="delete-button" th:onclick="|deleteComment('${comment.id}')|">Eliminar</button>
+					<img src="/images/users.png" class="img-circle" height="65" width="65"
+						alt="Avatar">
+				</div>
+
+				<div class="col-sm-10">
+
+					<div>
+						<h4 th:text="${comment.authorName}"></h4>
+						<!--  <h3 th:text="${comment.rating}"></h3> -->
+						<th:block th:if="${comment.rating!=0}"
+							th:each="i: ${#numbers.sequence(0, comment.rating-0.1)}">
+							<i class="material-icons" style='font-size: 16px'>&#xe838;</i>
+
+						</th:block>
+						<small th:text="${#dates.format(comment.date, 'dd-MMM-yyyy')}"></small>
+					</div>
+					<p th:text="${comment.comment}"></p>
+					<br>
+				</div>
+				<hr>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<div id="responseFragment"></div>
 </body>
 
 </html>

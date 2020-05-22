@@ -4,6 +4,7 @@
 <script type="text/javascript" th:src="@{/js/callController.js}" /></script>
 <title>Gestor</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <!--  RESULTS CSS -->
 <link rel="stylesheet" type="text/css"
@@ -18,15 +19,19 @@
 <link rel="stylesheet" th:href="@{/css/results/gijgo.css}">
 <link rel="stylesheet" th:href="@{/css/results/animate.min.css}">
 <link rel="stylesheet" th:href="@{/css/results/slicknav.css}">
+
+<!-- SNACKBAR -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/snackbar/snackbarStyle.css}">
 </head>
 <body>
 <h1>GESTOR</h1>
 
 <div th:if="${#lists.isEmpty(result)}">
-No se han podido cargar los resultados :(
+No se han encontrado películas :(
 </div>
 <div class="job_listing_area">
 		<div class="container">
+		<a href='/createMovie'  class="create-button"><span class="glyphicon glyphicon-plus"></span> CrearPelicula</a>
 <div th:unless="${#lists.isEmpty(result)}" class="job_lists">
 			
                 <div th:each="movie : ${result}" class="row">

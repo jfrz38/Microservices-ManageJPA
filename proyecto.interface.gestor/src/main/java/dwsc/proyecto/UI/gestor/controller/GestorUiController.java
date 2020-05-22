@@ -3,7 +3,6 @@ package dwsc.proyecto.UI.gestor.controller;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,15 +47,21 @@ public class GestorUiController {
 	@DeleteMapping("deleteComment/{id}")
 	public String deleteComment(Map<String, Object> model, @PathVariable("id") Long id){
 		
-		ResponseEntity<?> response = eliminarComentario.deleteComment(id);
-		
-		if(response.getStatusCodeValue()==200) {
-			model.put("response",true);
-			model.put("textResponse", "Comentario eliminado con éxito");
-		}else {
+		try {
+			ResponseEntity<?> response = eliminarComentario.deleteComment(id);
+			
+			if(response.getStatusCodeValue()==200) {
+				model.put("response",true);
+				model.put("textResponse", "Comentario eliminado con éxito");
+			}else {
+				model.put("response",false);
+				model.put("textResponse", "No se ha podido eliminar el comentario");
+			}
+		}catch(Exception e) {
 			model.put("response",false);
 			model.put("textResponse", "No se ha podido eliminar el comentario");
 		}
+		
 		
 		return "response :: responseFragment";
 	}
@@ -67,16 +72,22 @@ public class GestorUiController {
 		movie.setComments(new HashSet<Comment>());
 		movie.setRating(0);
 		movie.setTotalRating(0);
-		movie.setImageURL("");
+		//movie.setImageURL("");
 		
 		try {
 			ResponseEntity<Movie> response = gestionarPelicula.insertMovie(movie);
-			model.put("response",true);
-			model.put("textResponse", "Película "+movie.getName()+" insertada con éxito");
+			if(response.getStatusCodeValue()==200) {
+				model.put("response",true);
+				model.put("textResponse", "Película "+movie.getName()+" insertada con éxito");
+			}else {
+				model.put("response",false);
+				model.put("textResponse", "No se han podido verificar los datos de la película.");
+			}
+			
 		}catch(Exception e) {
 			//404
 			model.put("response",false);
-			model.put("textResponse", "No se ha podido insertar la película.");
+			model.put("textResponse", "No se han podido verificar los datos de la película.");
 		}
 		
 		return "response :: responseFragment";
@@ -87,8 +98,14 @@ public class GestorUiController {
 		
 		try {
 			ResponseEntity<?> response = gestionarPelicula.deleteMovie(id);
-			model.put("response",true);
-			model.put("textResponse", "Película eliminada con éxito");
+			if(response.getStatusCodeValue()==204) {
+				model.put("response",true);
+				model.put("textResponse", "Película eliminada con éxito");
+			}else {
+				model.put("response",true);
+				model.put("textResponse", "No se ha podido eliminar la película");
+			}
+			
 		}catch(Exception e){
 			model.put("response",true);
 			model.put("textResponse", "No se ha podido eliminar la película");
@@ -99,13 +116,8 @@ public class GestorUiController {
 	@PutMapping("/updateMovie/{id}")
 	public String updateMovie(Map<String,Object> model, @PathVariable("id") long id, @RequestBody Movie movie) {
 		
-		//Valores no modificables: Se inician pero no se actualizan.
 		try {
-			//Valores que no se editan si no se han introducido en el cuerpo
-			if(movie.getName() == null) movie.setName("");
-			if(movie.getDescription() == null) movie.setDescription("");
-			if(movie.getImageURL()==null) movie.setImageURL("");
-			//Valores que no se actualizan nunca
+			//Valores que no se actualizan manualmente
 			movie.setComments(new HashSet<Comment>());
 			movie.setRating(0);
 			movie.setTotalRating(0);
@@ -126,18 +138,10 @@ public class GestorUiController {
 		return "response :: responseFragment";
 	}
 	
-	@GetMapping("/createMovie")
-	public String createMovie() {
-		//Acceder a la ventana con opciones
-		//para crear una película.
-		return "createMovie";
-	}
-	
 	@GetMapping("/gestion/{id}")
 	public String manageMovie(Map<String,Object> model, @PathVariable("id") long id){
-		System.out.println("id manageMovie = "+id);
 		try {
-			ResponseEntity<Movie> response = buscarPelicula.findById(1);
+			ResponseEntity<Movie> response = buscarPelicula.findById(id);
 			if(response.getStatusCodeValue()==200) {
 				model.put("movie",response.getBody());
 				return "manageMovie";
@@ -154,6 +158,27 @@ public class GestorUiController {
 			return "response :: responseFragment";
 		}
 		
+	}
+	
+	@GetMapping("/createMovie")
+	public String createMovie() {
+		//Acceder a la ventana con opciones
+		//para crear una película.
+		return "createMovie";
+	}
+	
+	@GetMapping("/error")
+	public String setError(Map<String, Object> model) {
+		model.put("response", false);
+		model.put("textResponse", "Ha ocurrido un error");
+		return "response :: responseFragment";
+	}
+
+	@GetMapping("/error/{error}")
+	public String setSpecifiedError(Map<String, Object> model, @PathVariable("error") String error) {
+		model.put("response", false);
+		model.put("textResponse", "Ha ocurrido un error: " + error);
+		return "response :: responseFragment";
 	}
 	
 }

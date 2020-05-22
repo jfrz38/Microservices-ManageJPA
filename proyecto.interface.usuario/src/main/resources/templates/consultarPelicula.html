@@ -29,7 +29,9 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
   <script type="text/javascript" th:src="@{/js/consultarPelicula.js}" /></script>
-
+  
+<!-- SNACKBAR -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/snackbar/snackbarStyle.css}">
 
 </head>
 <body>
@@ -79,6 +81,7 @@
 	<hr>
 
 	<my-comment-component th:movieid="${movie.id}"></my-comment-component>
+	
 	<div id="responseFragment"></div>
 	
 	<hr>
@@ -93,7 +96,7 @@
 		<div th:each="comment : ${movie.comments}">
 			<div class="col-sm-2 text-center">
 
-				<img src="users.png" class="img-circle" height="65" width="65"
+				<img src="/images/users.png"  height="65" width="65"
 					alt="Avatar">
 			</div>
 			<div class="col-sm-10">

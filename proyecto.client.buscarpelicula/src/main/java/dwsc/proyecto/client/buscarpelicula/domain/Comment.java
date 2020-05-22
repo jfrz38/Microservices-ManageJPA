@@ -73,8 +73,8 @@ public class Comment {
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
-		movie.getComments().add(this);
-		movie.addRating(rating);
+		//movie.getComments().add(this);
+		//movie.addRating(rating);
 	}
 	
 }

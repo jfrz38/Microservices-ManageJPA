@@ -28,8 +28,9 @@ public class CommentController {
 		Movie movie = comment.get().getMovie();
 		commentRepo.deleteById(id);
 		movie.addRating(comment.get().getRating()*-1);
+		System.out.println("movie comment = "+movie.getRating());
 		movieRepo.save(movie);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 }

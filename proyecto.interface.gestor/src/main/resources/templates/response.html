@@ -8,12 +8,12 @@
 
 </head>
 <body>
-	<div th:fragment="responseFragment" th:unless="${response==null}">
+	<div id="snackbar" th:fragment="responseFragment" th:unless="${response==null}">
 		<!-- IF/ELSE -->
-		<div th:if="${response.equals(true)}" class="responseTrue">
+		<div th:if="${response.equals(true)}">
 			<p th:text="${textResponse}"></p>
 		</div>
-		<div th:if="${response.equals(false)}" class="responseFalse">
+		<div th:if="${response.equals(false)}">
 			<p th:text="${textResponse}"></p>
 		</div>
 	</div>

@@ -35,7 +35,6 @@ public class VerificarDatosController {
 			for(JsonNode node : results) {
 				if((node.get("Title").asText().equalsIgnoreCase(movieName)) &&
 						(node.get("Year").asInt()==year)) {
-					System.out.println("return: "+node.get("Poster").asText());
 					return ResponseEntity.ok().body(node.get("Poster").asText());
 				}
 			}

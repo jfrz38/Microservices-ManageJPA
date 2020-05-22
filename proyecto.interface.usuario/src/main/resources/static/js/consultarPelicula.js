@@ -1,6 +1,10 @@
 function sendComment(id){
 	
+	//Quitar respuesta anterior
 	$('#responseFragment').empty();
+	//Esconder snackbar anterior
+	var x = document.getElementById("snackbar");
+	if(x != null) x.className = x.className.replace("show", "");
 	
 	var name = $( "#name" )[0].value
 	if(name == '' || name === undefined){
@@ -38,6 +42,12 @@ function sendComment(id){
 	});
 }
 
+function showSnackBar(){
+	var x = document.getElementById("snackbar");
+	x.className = "show";
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
 $(document).on('click', '.star', function () {
 
 	$('.star').addClass('selected');
@@ -47,3 +57,4 @@ $(document).on('click', '.star', function () {
     }
 
 });
+

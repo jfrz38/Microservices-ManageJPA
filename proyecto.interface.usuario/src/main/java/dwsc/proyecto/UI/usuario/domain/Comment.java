@@ -48,9 +48,6 @@ public class Comment {
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
-		if(movie.getComments()==null) return;
-		movie.getComments().add(this);
-		movie.addRating(rating);
 	}
 	public Long getId() {
 		return id;

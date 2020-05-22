@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import dwsc.proyecto.client.comentarpelicula.dao.CommentRepository;
 import dwsc.proyecto.client.comentarpelicula.dao.MovieRepository;
 import dwsc.proyecto.client.comentarpelicula.domain.Comment;
@@ -23,6 +26,7 @@ public class CommentController {
 	MovieRepository movieRepo;
 	
 	@PostMapping("/insert/{movieID}")
+	@JsonInclude(content=Include.NON_NULL)
 	public ResponseEntity<?> insertComment(@RequestBody Comment comment, @PathVariable("movieID") Long id) {
 		Optional<Movie> movie = movieRepo.findById(id);
 		if(movie.isPresent()) {

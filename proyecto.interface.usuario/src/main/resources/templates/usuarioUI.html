@@ -70,6 +70,9 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<!-- SNACKBAR -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/snackbar/snackbarStyle.css}">
+
 </head>
 <body class="animsition">
 
@@ -135,7 +138,7 @@
 
 												<div class="p-t-20">
 													<h5 class="p-b-5">
-														<a th:ref="'/datosPelicula/'+${lastMovies.get(0).id}">
+														<a th:href="'/datosPelicula/'+${lastMovies.get(0).id}">
 														<p th:text="${lastMovies.get(0).name}"
 															class="f1-m-3 cl2 hov-cl10 trans-03" />
 														</a>

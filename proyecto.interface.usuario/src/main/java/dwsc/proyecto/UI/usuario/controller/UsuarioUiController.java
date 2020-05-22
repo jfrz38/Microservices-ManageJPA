@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import dwsc.proyecto.UI.usuario.dao.BuscarPeliculaClient;
 import dwsc.proyecto.UI.usuario.dao.ComentarPeliculaClient;
 import dwsc.proyecto.UI.usuario.domain.Movie;
@@ -91,7 +94,7 @@ public class UsuarioUiController {
 				response = buscarPelicula.lowYear(year);
 			} else {
 				model.put("response", false);
-				model.put("textResponse", "No se han podido realizar la búsqueda");
+				model.put("textResponse", "No se ha podido realizar la búsqueda");
 				return "response :: responseFragment";
 			}
 
@@ -100,37 +103,51 @@ public class UsuarioUiController {
 				return "results :: searchResult";
 			} else {
 				model.put("response", false);
-				model.put("textResponse", "No se han podido realizar la búsqueda");
+				model.put("textResponse", "No se ha podido realizar la búsqueda");
 				return "response :: responseFragment";
 			}
 		} catch (Exception e) {
 			model.put("response", false);
-			model.put("textResponse", "No se han podido realizar la búsqueda");
+			model.put("textResponse", "No se ha podido realizar la búsqueda");
 			return "response :: responseFragment";
 		}
 
 	}
 
 	@GetMapping("/moviesByRate/{option}/{rating}")
-	public String searchMoviesByRate(Map<String, List<Movie>> model, @PathVariable("option") String option,
+	public String searchMoviesByRate(Map<String, Object> model, @PathVariable("option") String option,
 			@PathVariable("rating") double rating) {
-		ResponseEntity<List<Movie>> response = null;
-		if (option == "high") {
-			response = buscarPelicula.getByHigherRating(rating);
-		} else if (option == "low") {
-			response = buscarPelicula.getByLowerRating(rating);
-		} else {
-			// error
+		
+		try {
+			ResponseEntity<List<Movie>> response = null;
+			if (option.equals("high")) {
+				response = buscarPelicula.getByHigherRating(rating);
+			} else if (option.equals("low")) {
+				response = buscarPelicula.getByLowerRating(rating);
+			} else {
+				model.put("response", false);
+				model.put("textResponse", "No se ha podido realizar la búsqueda");
+				return "response :: responseFragment";
+			}
+			
+			if (response.getStatusCodeValue() == 200) {
+				model.put("result", response.getBody());
+				return "results :: searchResult";
+			} else {
+				model.put("response", false);
+				model.put("textResponse", "No se ha podido realizar la búsqueda");
+				return "response :: responseFragment";
+			}
+			
+		}catch(Exception e) {
+			model.put("response", false);
+			model.put("textResponse", "No se ha podido realizar la búsqueda");
+			return "response :: responseFragment";
 		}
-
-		model.put("result", response.getBody());
-		return "results :: searchResult";
 	}
 
 	@GetMapping("/news")
 	public String goToNews() {
-
-		// return "news";
 		return "redirect:" + "http://localhost:8080/ProductorConsumidor/news";
 	}
 
@@ -143,24 +160,22 @@ public class UsuarioUiController {
 	}
 
 	@PostMapping("/comment/{id}")
+	@JsonInclude(content=Include.NON_NULL)
 	public String commentMovie(Map<String, Object> model, @RequestBody Comment comment, @PathVariable("id") long id) {
-
 		comment.setDate(new Date());
-		comment.setMovie(new Movie());
 		try {
 			ResponseEntity<?> response = comentarPelicula.commentMovie(comment, id);
+			System.out.println("Resultado = "+response.getStatusCodeValue());
 			if(response.getStatusCodeValue()==200) {
 				model.put("response", true);
 				model.put("textResponse", "Comentario añadido con éxito");
 				return "response :: responseFragment";
 			}else {
-				System.out.println("4");
 				model.put("response", false);
 				model.put("textResponse", "No se ha podido añadir el comentario");
 				return "response :: responseFragment";
 			}
 		} catch (Exception e) {
-			System.out.println("error = "+e.getMessage());
 			model.put("response", false);
 			model.put("textResponse", "No se ha podido añadir el comentario");
 			return "response :: responseFragment";
@@ -188,13 +203,6 @@ public class UsuarioUiController {
 			return "response :: responseFragment";
 		}
 
-	}
-
-	@GetMapping("/pruebaBusqueda")
-	public String pruebaBusqueda(Map<String, List<Movie>> model) {
-		// Importante: La key del mapa es result
-		model.put("result", buscarPelicula.getBestMovies(5).getBody());
-		return "results :: searchResult";
 	}
 
 	@GetMapping("/error")
