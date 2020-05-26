@@ -1,5 +1,7 @@
 package dwsc.proyecto.client.comentarpelicula.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,12 @@ public class CommentController {
 	
 	@PostMapping("/insert/{movieID}")
 	@JsonInclude(content=Include.NON_NULL)
-	public ResponseEntity<?> insertComment(@RequestBody Comment comment, @PathVariable("movieID") Long id) {
+	public ResponseEntity<String> insertComment(@RequestBody Comment comment, @PathVariable("movieID") Long id) throws URISyntaxException {
 		Optional<Movie> movie = movieRepo.findById(id);
 		if(movie.isPresent()) {
 			comment.setMovie(movie.get());
 			commentRepo.save(comment);
-			return ResponseEntity.ok(comment);
+			return ResponseEntity.created(new URI("/"+comment.getId())).body("Comentario añadido con éxito");
 		}else {
 			return ResponseEntity.notFound().build();
 		}

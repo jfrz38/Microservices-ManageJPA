@@ -12,5 +12,5 @@ import dwsc.proyecto.UI.usuario.domain.Comment;
 public interface ComentarPeliculaClient {
 
 	@PostMapping("/insert/{movieID}")
-	ResponseEntity<?> commentMovie(@RequestBody Comment comment, @PathVariable("movieID") Long id);
+	ResponseEntity<String> commentMovie(@RequestBody Comment comment, @PathVariable("movieID") Long id);
 }

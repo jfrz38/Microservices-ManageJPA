@@ -16,11 +16,11 @@ import dwsc.proyecto.UI.gestor.domain.Movie;
 public interface GestionarPeliculaClient {
 
 	@PostMapping("/insert")
-	public ResponseEntity<Movie> insertMovie(@RequestBody Movie movie);
+	public ResponseEntity<String> insertMovie(@RequestBody Movie movie);
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteMovie(@PathVariable("id") Long id);
+	public ResponseEntity<String> deleteMovie(@PathVariable("id") Long id);
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Movie> updateMovie(@RequestBody Movie updateMovie, @PathVariable("id") Long id);
+	public ResponseEntity<String> updateMovie(@RequestBody Movie updateMovie, @PathVariable("id") Long id);
 }

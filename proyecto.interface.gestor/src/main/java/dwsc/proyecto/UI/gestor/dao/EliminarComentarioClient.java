@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface EliminarComentarioClient {
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteComment(@PathVariable("id") Long id);
+	public ResponseEntity<String> deleteComment(@PathVariable("id") Long id);
 }

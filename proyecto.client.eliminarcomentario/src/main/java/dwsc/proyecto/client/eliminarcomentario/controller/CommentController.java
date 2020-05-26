@@ -22,15 +22,14 @@ public class CommentController {
 	MovieRepository movieRepo;
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteComment(@PathVariable("id") Long id) {
+	public ResponseEntity<String> deleteComment(@PathVariable("id") Long id) {
 		Optional<Comment> comment = commentRepo.findById(id);
 		if(!comment.isPresent()) return ResponseEntity.notFound().build();
 		Movie movie = comment.get().getMovie();
 		commentRepo.deleteById(id);
 		movie.addRating(comment.get().getRating()*-1);
-		System.out.println("movie comment = "+movie.getRating());
 		movieRepo.save(movie);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body("Comentario eliminado con éxito");
 	}
 	
 }

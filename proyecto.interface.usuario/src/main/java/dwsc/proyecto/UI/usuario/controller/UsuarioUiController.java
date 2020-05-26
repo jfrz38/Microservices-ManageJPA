@@ -162,13 +162,14 @@ public class UsuarioUiController {
 	@PostMapping("/comment/{id}")
 	@JsonInclude(content=Include.NON_NULL)
 	public String commentMovie(Map<String, Object> model, @RequestBody Comment comment, @PathVariable("id") long id) {
+		
 		comment.setDate(new Date());
 		try {
-			ResponseEntity<?> response = comentarPelicula.commentMovie(comment, id);
-			System.out.println("Resultado = "+response.getStatusCodeValue());
-			if(response.getStatusCodeValue()==200) {
+			ResponseEntity<String> response = comentarPelicula.commentMovie(comment, id);
+
+			if(response.getStatusCodeValue()==201) {
 				model.put("response", true);
-				model.put("textResponse", "Comentario añadido con éxito");
+				model.put("textResponse", response.getBody());
 				return "response :: responseFragment";
 			}else {
 				model.put("response", false);

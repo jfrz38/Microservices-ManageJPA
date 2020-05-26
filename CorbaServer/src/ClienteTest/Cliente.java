@@ -16,21 +16,9 @@ public class Cliente {
 			String name = "Buffer";
 			bufferImpl = BufferHelper.narrow(ncRef.resolve_str(name));
 			StringHolder elem = new StringHolder();
-			System.out.println("Referencia:" + bufferImpl);
-			System.out.println(bufferImpl.put("Elemento 1"));
-			System.out.println(bufferImpl.put("Elemento 2"));
-			System.out.println(bufferImpl.put("Elemento 3"));
-			System.out.println(bufferImpl.put("Elemento 4"));
-			System.out.println(bufferImpl.put("Elemento 5"));
-			System.out.println(bufferImpl.put("Elemento 6"));
-			System.out.println(bufferImpl.get(elem) + "\t" + elem.value);
-			System.out.println(bufferImpl.read(elem) + "\t" + elem.value);
-			System.out.println(bufferImpl.get(elem) + "\t" + elem.value);
-			System.out.println(bufferImpl.read(elem) + "\t" + elem.value);
-			System.out.println(bufferImpl.num_elementos()+"");
 			bufferImpl.shutdown();
 		} catch (Exception e) {
-			System.out.println("ERROR : " + e);
+			System.err.println("ERROR : " + e);
 			e.printStackTrace(System.out);
 		}
 	}

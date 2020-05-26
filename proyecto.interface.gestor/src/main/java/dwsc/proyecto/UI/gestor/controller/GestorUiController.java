@@ -46,13 +46,11 @@ public class GestorUiController {
 	
 	@DeleteMapping("deleteComment/{id}")
 	public String deleteComment(Map<String, Object> model, @PathVariable("id") Long id){
-		
 		try {
-			ResponseEntity<?> response = eliminarComentario.deleteComment(id);
-			
+			ResponseEntity<String> response = eliminarComentario.deleteComment(id);
 			if(response.getStatusCodeValue()==200) {
 				model.put("response",true);
-				model.put("textResponse", "Comentario eliminado con éxito");
+				model.put("textResponse", response.getBody()); //"Comentario eliminado con éxito");
 			}else {
 				model.put("response",false);
 				model.put("textResponse", "No se ha podido eliminar el comentario");
@@ -72,13 +70,12 @@ public class GestorUiController {
 		movie.setComments(new HashSet<Comment>());
 		movie.setRating(0);
 		movie.setTotalRating(0);
-		//movie.setImageURL("");
 		
 		try {
-			ResponseEntity<Movie> response = gestionarPelicula.insertMovie(movie);
-			if(response.getStatusCodeValue()==200) {
+			ResponseEntity<String> response = gestionarPelicula.insertMovie(movie);
+			if(response.getStatusCodeValue()==201) {
 				model.put("response",true);
-				model.put("textResponse", "Película "+movie.getName()+" insertada con éxito");
+				model.put("textResponse", response.getBody());
 			}else {
 				model.put("response",false);
 				model.put("textResponse", "No se han podido verificar los datos de la película.");
@@ -87,7 +84,7 @@ public class GestorUiController {
 		}catch(Exception e) {
 			//404
 			model.put("response",false);
-			model.put("textResponse", "No se han podido verificar los datos de la película.");
+			model.put("textResponse", "No se ha podido añadir la película.");
 		}
 		
 		return "response :: responseFragment";
@@ -97,10 +94,10 @@ public class GestorUiController {
 	public String deleteMovie(Map<String,Object> model, @PathVariable("id") long id) {
 		
 		try {
-			ResponseEntity<?> response = gestionarPelicula.deleteMovie(id);
-			if(response.getStatusCodeValue()==204) {
+			ResponseEntity<String> response = gestionarPelicula.deleteMovie(id);
+			if(response.getStatusCodeValue()==200) {
 				model.put("response",true);
-				model.put("textResponse", "Película eliminada con éxito");
+				model.put("textResponse", response.getBody()); //"Película eliminada con éxito");
 			}else {
 				model.put("response",true);
 				model.put("textResponse", "No se ha podido eliminar la película");
@@ -122,10 +119,10 @@ public class GestorUiController {
 			movie.setRating(0);
 			movie.setTotalRating(0);
 			//Respuesta
-			ResponseEntity<Movie> response = gestionarPelicula.updateMovie(movie, id);
+			ResponseEntity<String> response = gestionarPelicula.updateMovie(movie, id);
 			if(response.getStatusCodeValue()== 200) {
 				model.put("response",true);
-				model.put("textResponse", "Película "+id+" actualizada con éxito");
+				model.put("textResponse", response.getBody());//"Película "+id+" actualizada con éxito");
 			}else {
 				model.put("response",false);
 				model.put("textResponse", "No se ha podido actualizar la película");
@@ -152,7 +149,6 @@ public class GestorUiController {
 			}
 			
 		}catch(Exception e){
-			System.out.println("exception = "+e.getMessage());
 			model.put("response",false);
 			model.put("textResponse", "Hubo un error al buscar la película");
 			return "response :: responseFragment";

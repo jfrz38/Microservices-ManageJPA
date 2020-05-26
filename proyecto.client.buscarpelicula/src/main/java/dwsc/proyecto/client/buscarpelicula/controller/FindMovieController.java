@@ -34,7 +34,7 @@ public class FindMovieController {
 		if(movie.isPresent()) {
 			return ResponseEntity.ok(movie.get());
 		}else {
-			return ResponseEntity.noContent().build();
+			return ResponseEntity.notFound().build();
 		}
 	}
 	
