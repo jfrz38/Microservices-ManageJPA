@@ -1,9 +1,6 @@
 package ual.dss.xmlib;
 
-import java.io.File;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,7 +12,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
-import ual.dss.core.Mensaje;
 import ual.dss.core.Noticia;
 
 // TODO: Auto-generated Javadoc
@@ -30,7 +26,7 @@ public class XMLDecoder {
 	 * @param fileName the file name
 	 * @return La lista de mensajes decodificados
 	 */
-	public static List<Noticia> decodeXML(String fileName){
+	/*public static List<Noticia> decodeXML(String fileName){
 		try {
 	          File inputFile = new File(fileName+".xml");
 	          DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -67,7 +63,7 @@ public class XMLDecoder {
 	       }
 		return new ArrayList<Noticia>();   
 	}
-	
+	*/
 	/**
 	 * Decodifica el XML a partir de un string
 	 *
@@ -75,10 +71,8 @@ public class XMLDecoder {
 	 * @param flag the flag
 	 * @return La lista de mensajes decodificados
 	 */
-	public static List<Noticia> decodeXML(String xml, int flag){
+	/*public static List<Noticia> decodeXML(String xml, int flag){
 		try {
-	          
-	         
 	          DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 	          InputSource is = new InputSource();
 	          is.setCharacterStream(new StringReader(xml));
@@ -117,7 +111,7 @@ public class XMLDecoder {
 	       }
 		return new ArrayList<Noticia>();   
 	}
-	
+	*/
 	public static Noticia decodeSingleXML(String xml) {
 		try {
 	          
@@ -135,10 +129,12 @@ public class XMLDecoder {
 	                    if(eElement.getElementsByTagName("shortDescription").getLength() == 0) throw new Exception("Falta el elemento shortDescription");
 	                    if(eElement.getElementsByTagName("largeDescription").getLength() == 0) throw new Exception("Falta el elemento largeDescription");
 	                    if(eElement.getElementsByTagName("date").getLength() == 0) throw new Exception("Falta el elemento date");
+	                    if(eElement.getElementsByTagName("url").getLength() == 0) throw new Exception("Falta el elemento url");
 	                    
 	                    Noticia tempMensaje = new Noticia(eElement.getElementsByTagName("shortDescription").item(0).getTextContent(),
 	                    		eElement.getElementsByTagName("largeDescription").item(0).getTextContent(),
-	                    		eElement.getElementsByTagName("date").item(0).getTextContent());
+	                    		eElement.getElementsByTagName("date").item(0).getTextContent(),
+	                    		eElement.getElementsByTagName("url").item(0).getTextContent());
 	                    salida = tempMensaje;
 	             }
 	         

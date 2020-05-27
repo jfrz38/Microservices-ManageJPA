@@ -12,12 +12,17 @@ public abstract class _BufferImplBase extends org.omg.CORBA.portable.ObjectImpl
                 implements BufferApp.Buffer, org.omg.CORBA.portable.InvokeHandler
 {
 
-  // Constructors
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+// Constructors
   public _BufferImplBase ()
   {
   }
 
-  private static java.util.Hashtable _methods = new java.util.Hashtable ();
+  private static java.util.Hashtable<String,Integer> _methods = new java.util.Hashtable<String,Integer> ();
   static
   {
     _methods.put ("num_elementos", new java.lang.Integer (0));

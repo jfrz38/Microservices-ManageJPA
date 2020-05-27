@@ -1,0 +1,7 @@
+spring:
+  application: 
+    name: gestor-ui
+info:
+  app:
+    name: ${spring.application.name}
+    description: This is the manager UI.

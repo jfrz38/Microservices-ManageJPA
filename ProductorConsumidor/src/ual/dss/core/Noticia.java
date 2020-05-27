@@ -8,6 +8,7 @@ public class Noticia {
 	private String date;
 	private String shortDescription;
 	private String largeDescription;
+	private String url;
 	
 	public String getDate() {
 		return date;
@@ -28,21 +29,29 @@ public class Noticia {
 		this.largeDescription = largeDescription;
 	}
 	
-	public Noticia(String shortDescription, String largeDescription) {
+	public Noticia(String shortDescription, String largeDescription, String url) {
 		this.shortDescription=shortDescription;
 		this.largeDescription=largeDescription;
+		this.url = url;
 		this.date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 	}
 	
-	public Noticia(String shortDescription, String largeDescription, String date ) {
+	public Noticia(String shortDescription, String largeDescription, String date, String url ) {
 		this.shortDescription=shortDescription;
 		this.largeDescription=largeDescription;
 		this.date = date;
+		this.url = url;
 	}
 	
 	@Override
 	public String toString() {
 		return "Noticia [fecha = "+date+", descripción breve = " + shortDescription + ", descripción larga = " + largeDescription + "]";
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	
 }

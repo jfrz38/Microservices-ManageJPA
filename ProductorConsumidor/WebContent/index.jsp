@@ -36,6 +36,12 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="name">URL</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="url">
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <p style="right: 0;">Se creará la noticia a fecha de hoy: <%= new SimpleDateFormat("dd/MM/yyyy").format(new Date())%></p>
                         </div>
                     

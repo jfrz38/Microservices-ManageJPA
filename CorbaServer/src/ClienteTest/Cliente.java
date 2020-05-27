@@ -2,7 +2,6 @@ package ClienteTest;
 
 import BufferApp.*;
 import org.omg.CosNaming.*;
-import org.omg.CosNaming.NamingContextPackage.*;
 import org.omg.CORBA.*;
 
 public class Cliente {
@@ -15,7 +14,7 @@ public class Cliente {
 			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
 			String name = "Buffer";
 			bufferImpl = BufferHelper.narrow(ncRef.resolve_str(name));
-			StringHolder elem = new StringHolder();
+			//StringHolder elem = new StringHolder();
 			bufferImpl.shutdown();
 		} catch (Exception e) {
 			System.err.println("ERROR : " + e);

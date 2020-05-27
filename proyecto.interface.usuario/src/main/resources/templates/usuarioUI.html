@@ -231,8 +231,9 @@
 											class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
 											<span th:text="${iteration.index+1}"></span>
 										</div>
+										
 										<div class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-											<p th:text="${bestMovie.name} + ' - ' + ${bestMovie.rating}" />
+											<p th:text="${bestMovie.name} + ' - ' + ${#numbers.formatDecimal(bestMovie.rating, 1, 1)}" />
 											<!-- <i class="material-icons">&#xe838;</i> -->
 										</div>
 									</li>

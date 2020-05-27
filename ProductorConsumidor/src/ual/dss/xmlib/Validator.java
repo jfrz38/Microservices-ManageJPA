@@ -37,7 +37,7 @@ public class Validator {
 			// CreaciÃ³n del validador
 			javax.xml.validation.Validator validator = schema.newValidator();
 			// DefiniciÃ³n del manejador de excepciones del validador
-			final List exceptions = new LinkedList();
+			final List<SAXException> exceptions = new LinkedList<SAXException>();
 			validator.setErrorHandler(new ErrorHandler() {
 				public void warning(SAXParseException exception) throws SAXException {
 					exceptions.add(exception);
@@ -82,7 +82,7 @@ public class Validator {
 	      //Creaci�n del validador
 	      javax.xml.validation.Validator validator = schema.newValidator();
 	      //Definici�n del manejador de excepciones del validador
-	      final List exceptions = new LinkedList();
+	      final List<SAXException> exceptions = new LinkedList<SAXException>();
 	      validator.setErrorHandler(
 	        new ErrorHandler() {
 	         public void warning(SAXParseException exception) throws SAXException {

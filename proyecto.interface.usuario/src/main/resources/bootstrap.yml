@@ -1,0 +1,7 @@
+spring:
+  application: 
+    name: usuario-ui
+info:
+  app:
+    name: ${spring.application.name}
+    description: This is the user UI.

@@ -2,21 +2,14 @@ package ual.dss.xmlib;
 
 import java.io.File;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -26,9 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import org.xml.sax.SAXParseException;
 
-import ual.dss.core.Mensaje;
 import ual.dss.core.Noticia;
 
 // TODO: Auto-generated Javadoc
@@ -66,20 +57,23 @@ public class XMLCoder {
 				Element shortDescNode = document.createElement("shortDescription");
 				Element largeDescNode = document.createElement("largeDescription");
 				Element dateNode = document.createElement("date");
+				Element urlNode = document.createElement("url");
 	
 				Text nodeNomValue = document.createTextNode(entrada.get(i).getShortDescription());
 				Text nodeValueValue = document.createTextNode(entrada.get(i).getLargeDescription());
 				Text nodeDateValue = document.createTextNode(entrada.get(i).getDate());
+				Text nodeUrlValue = document.createTextNode(entrada.get(i).getUrl());
 				
 				largeDescNode.appendChild(nodeValueValue);
 				shortDescNode.appendChild(nodeNomValue);
 				dateNode.appendChild(nodeDateValue);
-	
+				urlNode.appendChild(nodeUrlValue);
 				
 				raiz.appendChild(noticiaNode);
 				noticiaNode.appendChild(shortDescNode);
 				noticiaNode.appendChild(largeDescNode);
 				noticiaNode.appendChild(dateNode);
+				noticiaNode.appendChild(urlNode);
 				
 			}
 			// Generate XML
@@ -120,21 +114,23 @@ public class XMLCoder {
 				Element shortDescNode = document.createElement("shortDescription");
 				Element largeDescNode = document.createElement("largeDescription");
 				Element dateNode = document.createElement("date");
+				Element urlNode = document.createElement("url");
 	
 				Text nodeNomValue = document.createTextNode(entrada.get(i).getShortDescription());
 				Text nodeValueValue = document.createTextNode(entrada.get(i).getLargeDescription());
 				Text nodeDateValue = document.createTextNode(entrada.get(i).getDate());
-	
+				Text nodeUrlValue = document.createTextNode(entrada.get(i).getUrl());
+				
 				largeDescNode.appendChild(nodeValueValue);
 				shortDescNode.appendChild(nodeNomValue);
 				dateNode.appendChild(nodeDateValue);
-	
+				urlNode.appendChild(nodeUrlValue);
 				
 				raiz.appendChild(noticiaNode);
 				noticiaNode.appendChild(shortDescNode);
 				noticiaNode.appendChild(largeDescNode);
 				noticiaNode.appendChild(dateNode);
-				
+				noticiaNode.appendChild(urlNode);
 			}
 			// Generate XML
 			Source source = new DOMSource(document);
@@ -172,6 +168,7 @@ public class XMLCoder {
 	                    eElement.getElementsByTagName("date").item(0).getTextContent();
 	                    eElement.getElementsByTagName("shortDescription").item(0).getTextContent();
 	                    eElement.getElementsByTagName("longDescription").item(0).getTextContent();
+	                    eElement.getElementsByTagName("url").item(0).getTextContent();
 	            }
 	         }
 	       } catch (Exception e) 

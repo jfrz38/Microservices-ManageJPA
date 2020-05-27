@@ -20,10 +20,10 @@ public class XMLibTest {
 	String resultado;
 	@Before
 	public void setUp() throws Exception {
-		Noticia noticia = new Noticia("short description","large description");
+		Noticia noticia = new Noticia("short description","large description","url");
 		noticias = new ArrayList<Noticia>();
 		noticias.add(noticia);
-		resultado = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><documentoProductorConsumidor><noticia><shortDescription>short description</shortDescription><largeDescription>large description</largeDescription><date>"+new SimpleDateFormat("dd/MM/yyyy").format(new Date())+"</date></noticia></documentoProductorConsumidor>";
+		resultado = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><documentoProductorConsumidor><noticia><shortDescription>short description</shortDescription><largeDescription>large description</largeDescription><date>"+new SimpleDateFormat("dd/MM/yyyy").format(new Date())+"</date><url>url</url></noticia></documentoProductorConsumidor>";
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class XMLibTest {
 	@Test
 	public void testDecoder() {
 		try {
-			assertEquals(noticias.get(0).toString(),XMLDecoder.decodeXML(resultado,0).get(0).toString());
+			assertEquals(noticias.get(0).toString(),XMLDecoder.decodeSingleXML(resultado).toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

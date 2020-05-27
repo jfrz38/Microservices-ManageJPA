@@ -1,13 +1,10 @@
 package ual.dss.servlet;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +17,7 @@ import org.omg.CosNaming.NamingContextExtHelper;
 
 import BufferApp.Buffer;
 import BufferApp.BufferHelper;
-import ual.dss.core.Mensaje;
 import ual.dss.core.Noticia;
-import ual.dss.xmlib.Validator;
 import ual.dss.xmlib.XMLCoder;
 import ual.dss.xmlib.XMLDecoder;
 
@@ -33,6 +28,11 @@ import ual.dss.xmlib.XMLDecoder;
 
 public class ServletImpl extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/** The buffer impl. */
 	static Buffer bufferImpl;
 
@@ -92,7 +92,8 @@ public class ServletImpl extends HttpServlet {
 		Enumeration<?> elements = req.getParameterNames();
 		String shortDescription = req.getParameter((String) elements.nextElement());
 		String largeDescription = req.getParameter((String) elements.nextElement());
-
+		String url = req.getParameter((String) elements.nextElement());
+		
 		try {
 			getreference();
 
@@ -128,8 +129,15 @@ public class ServletImpl extends HttpServlet {
 				req.getRequestDispatcher("/index.jsp").forward(req, response);
 				return;
 			}
+			
+			if(url.isEmpty()) {
+				req.setAttribute("resultError", "URL vacía");
+				req.setAttribute("resultOK", "");
+				req.getRequestDispatcher("/index.jsp").forward(req, response);
+				return;
+			}
 
-			Noticia noticia = new Noticia(shortDescription, largeDescription);
+			Noticia noticia = new Noticia(shortDescription, largeDescription, url);
 			List<Noticia> noticias = new ArrayList<Noticia>();
 			noticias.add(noticia);
 			String mensajeXML = "";

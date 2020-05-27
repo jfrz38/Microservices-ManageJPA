@@ -52,6 +52,8 @@
 <link rel="stylesheet" href="css/results/animate.min.css">
 <link rel="stylesheet" href="css/results/slicknav.css">
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 </head>
 <body class="animsition">
 
@@ -99,22 +101,22 @@
 								<div class="row">
 
 									<%
-										ArrayList<Noticia> noticias = (ArrayList<Noticia>) request.getAttribute("noticias");
+										ArrayList<Noticia> noticias = (ArrayList<Noticia>) request
+																			.getAttribute("noticias");
 
-									if (noticias.isEmpty()) {
+																	if (noticias.isEmpty()) {
 									%>
 									<div>No hay noticias para mostrar :(</div>
 									<%
 										} else {
 
-									}
 									%>
 									<div>
 										<%
 											for (Noticia noticia : noticias) {
 										%>
 
-										<div class="col-lg-12 col-md-12">
+										<div class="col-lg-12 col-md-12" style="margin-top:4px">
 											<div
 												class="single_jobs white-bg d-flex justify-content-between">
 												<div class="jobs_left d-flex align-items-center">
@@ -123,12 +125,23 @@
 														style="height: 82px; width: 82px; display: block; margin-right: 10px;"
 														src="images/news.png" alt="">
 
-													<div class="jobs_conetent">
-														<h4><%=noticia.getShortDescription()%></h4>
-														<p><%=noticia.getLargeDescription()%></p>
+													<div class="jobs_conetent" >
+													<div>
+													<i class="material-icons" style='font-size: 24px; display:inline-block; vertical-align: middle;'>&#xe88f;</i>
+															<h4 style="display: inline-block"><%=noticia.getShortDescription()%></h4>
+														</div>
+														<div>
+														<i class="material-icons" style='font-size: 24px; display:inline-block; vertical-align: middle;'>&#xe873;</i>
+														<p style="display:inline-block"><%=noticia.getLargeDescription()%></p>
+														</div>
+														<div style="vertical-align:middle;">
+														<i class="material-icons" style='font-size: 24px; display:inline-block; vertical-align: middle;'>&#xe157;</i>
+														<p style="display:inline-block"><%=noticia.getUrl()%></p>
+														</div>
 														<div class="links_locat d-flex align-items-center">
 															<div class="location">
-																<p>
+															<i class="material-icons" style='font-size: 24px; display:inline-block; vertical-align: middle;'>&#xe916;</i>
+																<p style="display:inline-block">
 																	<%=noticia.getDate()%>
 																</p>
 															</div>
@@ -137,7 +150,12 @@
 												</div>
 											</div>
 										</div>
+										<hr style="border: 1px solid black;">
+										<%
+										}
+									%>
 									</div>
+									
 									<%
 										}
 									%>
