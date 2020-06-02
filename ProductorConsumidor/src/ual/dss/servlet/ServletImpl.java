@@ -90,40 +90,40 @@ public class ServletImpl extends HttpServlet {
 		}
 
 		Enumeration<?> elements = req.getParameterNames();
-		String shortDescription = req.getParameter((String) elements.nextElement());
-		String largeDescription = req.getParameter((String) elements.nextElement());
+		String title = req.getParameter((String) elements.nextElement());
+		String description = req.getParameter((String) elements.nextElement());
 		String url = req.getParameter((String) elements.nextElement());
 		
 		try {
 			getreference();
 
-			if (shortDescription.isEmpty() || largeDescription.isEmpty()) {
-				req.setAttribute("resultError", "Introduce todos los parametros");
+			if (title.isEmpty() || description.isEmpty() || url.isEmpty()) {
+				req.setAttribute("resultError", "Introduce todos los parámetros");
 				req.setAttribute("resultOK", "");
 				req.getRequestDispatcher("/index.jsp").forward(req, response);
 				return;
 			}
 
-			if (shortDescription.replace(" ", "").length() > 30) {
+			if (title.replace(" ", "").length() > 30) {
 				req.setAttribute("resultError", "La descripción corta es demasiado larga");
 				req.setAttribute("resultOK", "");
 				req.getRequestDispatcher("/index.jsp").forward(req, response);
 				return;
 			}
-			if (shortDescription.replace(" ", "").length() < 5) {
+			if (title.replace(" ", "").length() < 5) {
 				req.setAttribute("resultError", "La descripción corta es demasiado corta");
 				req.setAttribute("resultOK", "");
 				req.getRequestDispatcher("/index.jsp").forward(req, response);
 				return;
 			}
 
-			if (largeDescription.replace(" ", "").length() > 500) {
+			if (description.replace(" ", "").length() > 500) {
 				req.setAttribute("resultError", "La descripción larga es demasiado larga");
 				req.setAttribute("resultOK", "");
 				req.getRequestDispatcher("/index.jsp").forward(req, response);
 				return;
 			}
-			if (largeDescription.replace(" ", "").length() < 20) {
+			if (description.replace(" ", "").length() < 20) {
 				req.setAttribute("resultError", "La descripción larga es demasiado corta");
 				req.setAttribute("resultOK", "");
 				req.getRequestDispatcher("/index.jsp").forward(req, response);
@@ -137,11 +137,11 @@ public class ServletImpl extends HttpServlet {
 				return;
 			}
 
-			Noticia noticia = new Noticia(shortDescription, largeDescription, url);
+			Noticia noticia = new Noticia(title, description, url);
 			List<Noticia> noticias = new ArrayList<Noticia>();
 			noticias.add(noticia);
 			String mensajeXML = "";
-			//boolean estado = false;
+			
 			try {
 				XMLCoder.codeXML("documentoProductorConsumidor", noticias);
 				mensajeXML = XMLCoder.codeXML(noticias);

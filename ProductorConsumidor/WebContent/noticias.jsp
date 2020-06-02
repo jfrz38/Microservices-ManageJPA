@@ -111,7 +111,7 @@
 										} else {
 
 									%>
-									<div>
+									<div style="width:100%">
 										<%
 											for (Noticia noticia : noticias) {
 										%>
@@ -150,12 +150,11 @@
 												</div>
 											</div>
 										</div>
-										<hr style="border: 1px solid black;">
+										<hr style="border: 1px solid black; width:100%">
 										<%
 										}
 									%>
 									</div>
-									
 									<%
 										}
 									%>

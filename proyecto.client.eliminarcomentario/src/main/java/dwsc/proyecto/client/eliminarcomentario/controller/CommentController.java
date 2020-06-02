@@ -12,6 +12,10 @@ import dwsc.proyecto.client.eliminarcomentario.dao.CommentRepository;
 import dwsc.proyecto.client.eliminarcomentario.dao.MovieRepository;
 import dwsc.proyecto.client.eliminarcomentario.domain.Comment;
 import dwsc.proyecto.client.eliminarcomentario.domain.Movie;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 public class CommentController {
@@ -21,8 +25,11 @@ public class CommentController {
 	@Autowired
 	MovieRepository movieRepo;
 	
+	@Operation(summary = "Elimina un comentario", description = "Operación para eliminar un comentario según el ID")
+	@ApiResponses({@ApiResponse(responseCode="200", description="Comentario eliminado"),
+		@ApiResponse(responseCode="404", description="Comentario no encontrado")})
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteComment(@PathVariable("id") Long id) {
+	public ResponseEntity<String> deleteComment(@Parameter(description="ID del comentario a eliminar") @PathVariable("id") Long id) {
 		Optional<Comment> comment = commentRepo.findById(id);
 		if(!comment.isPresent()) return ResponseEntity.notFound().build();
 		Movie movie = comment.get().getMovie();
@@ -33,3 +40,28 @@ public class CommentController {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

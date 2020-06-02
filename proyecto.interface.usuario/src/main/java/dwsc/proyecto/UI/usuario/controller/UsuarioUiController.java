@@ -56,11 +56,9 @@ public class UsuarioUiController {
 
 	@GetMapping("/moviesByName/{name}")
 	public String searchMoviesByName(Map<String, Object> model, @PathVariable String name) {
-		// List<Movie> movies = new ArrayList<Movie>();
 		try {
 			ResponseEntity<List<Movie>> response = buscarPelicula.getAllByName(name);
 			if (response.getStatusCodeValue() == 200) {
-				// movies = new ArrayList<Movie>();;
 				model.put("result", response.getBody());
 			} else {
 				model.put("response", false);

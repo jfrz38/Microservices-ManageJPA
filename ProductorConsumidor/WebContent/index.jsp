@@ -22,16 +22,16 @@
                 <div class="card-body">
                     <form action='http://localhost:8080/ProductorConsumidor/servlet' method='post'>
                         <div class="form-row">
-                            <div class="name">Descripción corta</div>
+                            <div class="name">Título</div>
                             <div class="value">
                                 <input class="input--style-6" type="text" name="shortDescription">
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Descripción larga</div>
+                            <div class="name">Descripción</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <textarea class="textarea--style-6" name="largeDescription" placeholder="Descripción larga de la noticia"></textarea>
+                                    <textarea class="textarea--style-6" name="largeDescription" placeholder="Descripción de la noticia"></textarea>
                                 </div>
                             </div>
                         </div>
