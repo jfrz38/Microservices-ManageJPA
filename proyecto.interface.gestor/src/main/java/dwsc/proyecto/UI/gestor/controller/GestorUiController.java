@@ -1,5 +1,6 @@
 package dwsc.proyecto.UI.gestor.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -33,12 +34,16 @@ public class GestorUiController {
 	private BuscarPeliculaClient buscarPelicula;
 	
 	@GetMapping("/")
-	public String init(Map<String, List<Movie>> model) {		
-		ResponseEntity<List<Movie>> response = buscarPelicula.getAllMovies();
-		if(response.getStatusCodeValue()==200) {
-			model.put("result",response.getBody());
-		}else {
-			// no se cargan resultados
+	public String init(Map<String, List<Movie>> model) {
+		try {
+			ResponseEntity<List<Movie>> response = buscarPelicula.getAllMovies();
+			if(response.getStatusCodeValue()==200) {
+				model.put("result",response.getBody());
+			}else {
+				model.put("result",new ArrayList<Movie>());
+			}
+		}catch(Exception e) {
+			model.put("result",new ArrayList<Movie>());
 		}
 		
 		return "gestorUI";
@@ -140,8 +145,6 @@ public class GestorUiController {
 	
 	@GetMapping("/createMovie")
 	public String createMovie() {
-		//Acceder a la ventana con opciones
-		//para crear una película.
 		return "createMovie";
 	}
 	

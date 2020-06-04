@@ -26,12 +26,13 @@
 <body>
 <h1>GESTOR</h1>
 
-<div th:if="${#lists.isEmpty(result)}">
-No se han encontrado películas :(
-</div>
+
 <div class="job_listing_area">
 		<div class="container">
-		<a href='/createMovie'  class="create-button"><span class="glyphicon glyphicon-plus"></span> CrearPelicula</a>
+		<a href='/createMovie'  class="create-button"><span class="glyphicon glyphicon-plus"></span> Crear Pelicula</a>
+		<div th:if="${#lists.isEmpty(result)}">
+No se han encontrado películas :(
+</div>
 <div th:unless="${#lists.isEmpty(result)}" class="job_lists">
 			
                 <div th:each="movie : ${result}" class="row">

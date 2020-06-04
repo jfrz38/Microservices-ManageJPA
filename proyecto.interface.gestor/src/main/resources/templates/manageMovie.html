@@ -74,7 +74,7 @@
 					<hr style="border: 1px solid black;">
 					<div>
 						<i style='font-size: 24px' class='fas'>&#xf030;</i> Imagen: <input
-							class="w3-input" id="image-input" th:value="${movie.imageURL}"></input>
+							class="w3-input" id="image-input" th:value="${movie.imageURL}" th:onblur="'replaceImage()'"></input>
 					</div>
 					<hr style="border: 1px solid black;">
 					<div class="buttons-options">

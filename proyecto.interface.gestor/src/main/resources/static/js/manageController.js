@@ -58,3 +58,13 @@ function deleteComment(id) {
 		$("#responseFragment").html(data);
 	});
 }
+
+function replaceImage(){
+	console.log("entra replace image")
+	var imageURL = $('#image-input')[0].value;
+	if (imageURL == '') {
+		$('.image').attr("src", 'images/movieDefault.jpg')
+	} else {
+		$('.image').attr("src", imageURL)
+	}
+}
