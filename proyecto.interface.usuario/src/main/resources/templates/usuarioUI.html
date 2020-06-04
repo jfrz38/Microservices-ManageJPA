@@ -57,8 +57,9 @@
 	th:href="@{https://fonts.googleapis.com/css?family=Roboto:400,700}"
 	rel="stylesheet" />
 <link rel="stylesheet" th:href="@{/css/search/mainSearch.css}">
-<!--<script th:src="@{/searchBar/dist/search-bar.js}"></script> -->
+<!-- <link rel="stylesheet" th:href="@{/css/searchBar/style.css}"> -->
 
+<!-- Search bar component -->
 <script type="module" th:src="@{/searchBar/build/search-bar.esm.js}"></script>
 <script nomodule th:src="@{/searchBar/build/search-bar.js}"></script>
 
@@ -146,7 +147,7 @@
 
 													<span class="cl8">
 
-														<p th:text="${lastMovies.get(0).year}" class="f1-s-3" />
+														<p style="color:inherit" th:text="${lastMovies.get(0).year}" class="f1-s-3" />
 
 													</span>
 												</div>
@@ -163,13 +164,15 @@
 
 												<div class="size-w-2">
 													<h5 class="p-b-5">
+													<a th:href="'/datosPelicula/'+${lastMovies.get(1).id}">
 														<p th:text="${lastMovies.get(1).name}"
 															class="f1-s-5 cl3 hov-cl10 trans-03" />
+															</a>
 													</h5>
 
 													<span class="cl8">
 
-														<p th:text="${lastMovies.get(1).year}" class="f1-s-3" />
+														<p style="color:inherit" th:text="${lastMovies.get(1).year}" class="f1-s-3" />
 													</span>
 												</div>
 											</div>
@@ -182,13 +185,15 @@
 
 												<div class="size-w-2">
 													<h5 class="p-b-5">
-														<p th:text="${lastMovies.get(2).name}"
+													<a th:href="'/datosPelicula/'+${lastMovies.get(2).id}">
+														<p style="color:inherit" th:text="${lastMovies.get(2).name}"
 															class="f1-s-5 cl3 hov-cl10 trans-03" />
+															</a>
 													</h5>
 
 													<span class="cl8">
 
-														<p th:text="${lastMovies.get(2).year}" class="f1-s-3" />
+														<p style="color:inherit" th:text="${lastMovies.get(2).year}" class="f1-s-3" />
 													</span>
 												</div>
 											</div>
@@ -200,11 +205,13 @@
 												</a>
 												<div class="size-w-2">
 													<h5 class="p-b-5">
+													<a th:href="'/datosPelicula/'+${lastMovies.get(3).id}">
 														<p th:text="${lastMovies.get(3).name}"
 															class="f1-s-5 cl3 hov-cl10 trans-03" />
+															</a>
 													</h5>
 													<span class="cl8">
-														<p th:text="${lastMovies.get(3).year}" class="f1-s-3" />
+														<p style="color:inherit" th:text="${lastMovies.get(3).year}" class="f1-s-3" />
 													</span>
 												</div>
 											</div>
@@ -233,8 +240,10 @@
 										</div>
 										
 										<div class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-											<p th:text="${bestMovie.name} + ' - ' + ${#numbers.formatDecimal(bestMovie.rating, 1, 1)}" />
-											<!-- <i class="material-icons">&#xe838;</i> -->
+											<a th:href="'/datosPelicula/'+${bestMovie.id}">
+											<p  style="color:black"
+											th:text="${bestMovie.name} + ' - ' + ${#numbers.formatDecimal(bestMovie.rating, 1, 1)}"/>
+											</a>
 										</div>
 									</li>
 								</th:block>
@@ -264,6 +273,7 @@
 						</div>
 					</div>
 					<my-search-bar></my-search-bar>
+					
 					<!-- Results block -->
 					<div class="job_listing_area">
 						<div id="responseFragment"></div>

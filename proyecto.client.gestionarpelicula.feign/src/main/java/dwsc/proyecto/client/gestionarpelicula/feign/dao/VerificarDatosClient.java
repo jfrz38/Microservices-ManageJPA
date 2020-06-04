@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface VerificarDatosClient {
 
 	@GetMapping("/movie/{movieName}/{year}")
-	ResponseEntity<String> getData(/*@RequestBody Movie movie);*/ //@PathVariable String name);
+	ResponseEntity<String> getData(
 			@PathVariable("movieName") String movieName,
 			@PathVariable("year") int year);
 }

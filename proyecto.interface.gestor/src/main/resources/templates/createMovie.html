@@ -15,22 +15,24 @@
 	th:href="@{/css/manageMovieStyle.css}">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-	<script type="text/javascript" th:src="@{/js/createMovie.js}" /></script>
-	
-	<!-- SNACKBAR -->
-<link rel="stylesheet" type="text/css" th:href="@{/css/snackbar/snackbarStyle.css}">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script type="text/javascript" th:src="@{/js/createMovie.js}" /></script>
+
+<!-- SNACKBAR -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/snackbar/snackbarStyle.css}">
 
 <title>Create movie</title>
 </head>
 <body>
-<div>
+	<div>
 		<i style="display: inline-block; font-size: 48px"
 			onclick="window.history.back()" class="material-icons">&#xe5c4;</i>
-		<h1 style="display: inline-block; text-align: center;">Crear película</h1>
+		<h1 style="display: inline-block; text-align: center;">Crear
+			película</h1>
 	</div>
-	
-<div class="container-fluid" style="width: 100%;">
+
+	<div class="container-fluid" style="width: 100%;">
 
 		<!-- Datos de la película -->
 		<div class="row content">
@@ -46,43 +48,36 @@
 				<!-- DERECHA -->
 				<div class="col-sm-9">
 					<div>
-						<i class="material-icons">&#xe88f;</i>Título <input class="w3-input"
-							id="name-input"></input>
+						<i class="material-icons">&#xe88f;</i>Título <input
+							class="w3-input" id="name-input"></input>
 					</div>
 					<hr style="border: 1px solid black;">
 					<div>
-						<i class="material-icons">&#xe8df;</i>Año: <input class="w3-input" id="year-input"
-							type="number"></input>
+						<i class="material-icons">&#xe8df;</i>Año: <input class="w3-input"
+							id="year-input" type="number"></input>
 					</div>
 					<hr style="border: 1px solid black;">
 
 					<div>
-						<i class="material-icons">&#xe873;</i>Descripción: <input class="w3-input"
-							id="description-input"></input>
+						<i class="material-icons">&#xe873;</i>Descripción: <input
+							class="w3-input" id="description-input"></input>
 					</div>
 					<hr style="border: 1px solid black;">
 					<div>
-						<i style='font-size:24px' class='fas'>&#xf030;</i> Imagen: <input class="w3-input" id="image-input"
-							></input>
+						<i style='font-size: 24px' class='fas'>&#xf030;</i> Imagen: <input
+							class="w3-input" id="image-input"></input>
 					</div>
 					<hr style="border: 1px solid black;">
 					<div class="buttons-options">
 						<button class="cancel-button" onclick="window.history.back()">Cancelar</button>
-						<button class="save-button"
-							onclick="insertMovie()">Crear</button>
+						<button class="save-button" onclick="insertMovie()">Crear</button>
 					</div>
-					
 				</div>
-
 			</div>
-
-
-
-
 		</div>
-</div>
-		<hr>
-		<div id="responseFragment"></div>
+	</div>
+	<hr>
+	<div id="responseFragment"></div>
 </body>
 
 </html>

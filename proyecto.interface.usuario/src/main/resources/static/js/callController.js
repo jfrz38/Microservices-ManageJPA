@@ -1,13 +1,13 @@
-function search(event) {
+function search() {
 	$(document).ready(function () {
 	    var txtSearch = $("#input-search-form").val()
 	    if (txtSearch == '') {
+	    	$("#responseFragment").load("/error/Se%20debe%20introducir%20texto");
 	        return
 	    }
 	    $('#responseFragment').empty();
 	    $('#searchResult').empty();
-		var url = '' // '/pruebaBusqueda';
-		
+		var url = '';
 	    if ($("#name-equal:radio").is(':checked')) {
 	        url='/moviesByName/'+txtSearch;
 	        
@@ -15,7 +15,6 @@ function search(event) {
 	        if(!isNaN(txtSearch)){
 	        	url='/moviesByYear/high/'+txtSearch;
 	        }else{
-	        	url="/error/Se deben introducir números"
 	            	$("#responseFragment").load("/error/Se%20deben%20introducir%20números");
 	            	return;
 	        }
@@ -23,7 +22,6 @@ function search(event) {
 	        if(!isNaN(txtSearch)){
 	        	url='/moviesByRate/high/'+txtSearch;
 	        }else{
-	        	url="/error/Se deben introducir números"
 	            	$("#responseFragment").load("/error/Se%20deben%20introducir%20números");
 	            	return;
 	        }

@@ -1,5 +1,6 @@
 package dwsc.proyecto.UI.usuario.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,20 +36,20 @@ public class UsuarioUiController {
 	@GetMapping("/")
 	public String init(Map<String, List<Movie>> model) {
 		// Best
-		ResponseEntity<List<Movie>> responseBest = getBestMovies();
+		ResponseEntity<List<Movie>> responseBest = buscarPelicula.getBestMovies(5);
 		if (responseBest.getStatusCodeValue() == 200) {
 			model.put("bestMovies", responseBest.getBody());
 		} else {
-			// error
+			model.put("bestMovies", new ArrayList<Movie>());
 		}
 
 		// Last
-		ResponseEntity<List<Movie>> responseLast = getLastMovies();
+		ResponseEntity<List<Movie>> responseLast = buscarPelicula.getLastMovies(4);
 		if (responseLast.getStatusCodeValue() == 200) {
 			model.put("lastMovies", responseLast.getBody());
 
 		} else {
-			// error
+			model.put("bestMovies", new ArrayList<Movie>());
 		}
 
 		return "usuarioUI";
@@ -61,12 +62,10 @@ public class UsuarioUiController {
 			if (response.getStatusCodeValue() == 200) {
 				model.put("result", response.getBody());
 			} else {
-				model.put("response", false);
 				model.put("textResponse", "No se ha encontrado ninguna película");
 				return "response :: responseFragment";
 			}
 		} catch (Exception e) {
-			model.put("response", false);
 			model.put("textResponse", "Ha ocurrido un error");
 			return "response :: responseFragment";
 		}
@@ -91,7 +90,6 @@ public class UsuarioUiController {
 			} else if (option.equals("low")) {
 				response = buscarPelicula.lowYear(year);
 			} else {
-				model.put("response", false);
 				model.put("textResponse", "No se ha podido realizar la búsqueda");
 				return "response :: responseFragment";
 			}
@@ -100,12 +98,10 @@ public class UsuarioUiController {
 				model.put("result", response.getBody());
 				return "results :: searchResult";
 			} else {
-				model.put("response", false);
 				model.put("textResponse", "No se ha podido realizar la búsqueda");
 				return "response :: responseFragment";
 			}
 		} catch (Exception e) {
-			model.put("response", false);
 			model.put("textResponse", "No se ha podido realizar la búsqueda");
 			return "response :: responseFragment";
 		}
@@ -123,7 +119,6 @@ public class UsuarioUiController {
 			} else if (option.equals("low")) {
 				response = buscarPelicula.getByLowerRating(rating);
 			} else {
-				model.put("response", false);
 				model.put("textResponse", "No se ha podido realizar la búsqueda");
 				return "response :: responseFragment";
 			}
@@ -132,13 +127,11 @@ public class UsuarioUiController {
 				model.put("result", response.getBody());
 				return "results :: searchResult";
 			} else {
-				model.put("response", false);
 				model.put("textResponse", "No se ha podido realizar la búsqueda");
 				return "response :: responseFragment";
 			}
 			
 		}catch(Exception e) {
-			model.put("response", false);
 			model.put("textResponse", "No se ha podido realizar la búsqueda");
 			return "response :: responseFragment";
 		}
@@ -149,13 +142,6 @@ public class UsuarioUiController {
 		return "redirect:" + "http://localhost:8080/ProductorConsumidor/news";
 	}
 
-	public ResponseEntity<List<Movie>> getBestMovies() {
-		return buscarPelicula.getBestMovies(5);
-	}
-
-	public ResponseEntity<List<Movie>> getLastMovies() {
-		return buscarPelicula.getLastMovies(4);
-	}
 
 	@PostMapping("/comment/{id}")
 	@JsonInclude(content=Include.NON_NULL)
@@ -166,16 +152,13 @@ public class UsuarioUiController {
 			ResponseEntity<String> response = comentarPelicula.commentMovie(comment, id);
 
 			if(response.getStatusCodeValue()==201) {
-				model.put("response", true);
 				model.put("textResponse", response.getBody());
 				return "response :: responseFragment";
 			}else {
-				model.put("response", false);
 				model.put("textResponse", "No se ha podido añadir el comentario");
 				return "response :: responseFragment";
 			}
 		} catch (Exception e) {
-			model.put("response", false);
 			model.put("textResponse", "No se ha podido añadir el comentario");
 			return "response :: responseFragment";
 		}
@@ -191,13 +174,11 @@ public class UsuarioUiController {
 				model.put("movie", response.getBody());
 				return "consultarPelicula";
 			} else {
-				model.put("response", false);
 				model.put("textResponse", "No se ha podido acceder a la película");
 				return "response :: responseFragment";
 			}
 
 		} catch (Exception e) {
-			model.put("response", false);
 			model.put("textResponse", "No se ha podido acceder a la película");
 			return "response :: responseFragment";
 		}
@@ -205,16 +186,14 @@ public class UsuarioUiController {
 	}
 
 	@GetMapping("/error")
-	public String setError(Map<String, Object> model) {
-		model.put("response", false);
+	public String setError(Map<String, String> model) {
 		model.put("textResponse", "Ha ocurrido un error");
 		return "response :: responseFragment";
 	}
 
 	@GetMapping("/error/{error}")
-	public String setSpecifiedError(Map<String, Object> model, @PathVariable("error") String error) {
-		model.put("response", false);
-		model.put("textResponse", "Ha ocurrido un error: " + error);
+	public String setSpecifiedError(Map<String, String> model, @PathVariable("error") String error) {
+		model.put("textResponse", "Error: " + error);
 		return "response :: responseFragment";
 	}
 

@@ -76,13 +76,10 @@ public class Movie {
 		return comments;
 	}
 	public void setComments(Set<Comment> comments) {
-		//double totalRating = 0.0;
 		this.comments = comments;
 		for(Comment comment : comments) {
 			comment.setMovie(this);
-			//totalRating+=comment.getRating();
 		}
-		//this.setRating(totalRating/comments.size());
 	}
 	public double getTotalRating() {
 		return totalRating;
@@ -92,7 +89,16 @@ public class Movie {
 	}
 	
 	public void addRating(double value) {
-		totalRating+=value;
-		rating = totalRating/comments.size();
+		totalRating += value;
+		try {
+			if(comments.size()==0) {
+				rating = 0;
+			}else {
+				rating = totalRating / comments.size();
+			}
+			
+		} catch (Exception e) {
+			rating = 0;
+		}
 	}
 }

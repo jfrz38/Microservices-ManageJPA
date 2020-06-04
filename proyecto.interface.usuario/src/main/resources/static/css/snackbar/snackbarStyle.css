@@ -24,6 +24,10 @@
     animation-fill-mode: forwards;
 }
 
+p{
+	color: white;
+}
+
 @keyframes cssAnimation {
     to {
         width:0;

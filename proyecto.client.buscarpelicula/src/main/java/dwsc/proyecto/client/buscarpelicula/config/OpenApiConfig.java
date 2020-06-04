@@ -13,7 +13,7 @@ public class OpenApiConfig {
 	@Bean
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI().components(new Components())
-				.info(new Info().title("Buscar películas API").description("API para buscar una películas según diferentes parámetros")
+				.info(new Info().title("Buscar películas API").description("API para buscar películas según diferentes parámetros")
 						.contact(new Contact().name("José F.").url("https://github.com/jfrz38").email("jrz899@inlumine.ual.es"))
 						.version("0.0.1"));
 	}

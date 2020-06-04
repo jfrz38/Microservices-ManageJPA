@@ -49,14 +49,11 @@ public class GestorUiController {
 		try {
 			ResponseEntity<String> response = eliminarComentario.deleteComment(id);
 			if(response.getStatusCodeValue()==200) {
-				model.put("response",true);
 				model.put("textResponse", response.getBody()); //"Comentario eliminado con éxito");
 			}else {
-				model.put("response",false);
 				model.put("textResponse", "No se ha podido eliminar el comentario");
 			}
 		}catch(Exception e) {
-			model.put("response",false);
 			model.put("textResponse", "No se ha podido eliminar el comentario");
 		}
 		
@@ -70,23 +67,16 @@ public class GestorUiController {
 		movie.setComments(new HashSet<Comment>());
 		movie.setRating(0);
 		movie.setTotalRating(0);
-		
 		try {
 			ResponseEntity<String> response = gestionarPelicula.insertMovie(movie);
 			if(response.getStatusCodeValue()==201) {
-				model.put("response",true);
 				model.put("textResponse", response.getBody());
 			}else {
-				model.put("response",false);
 				model.put("textResponse", "No se han podido verificar los datos de la película.");
 			}
-			
 		}catch(Exception e) {
-			//404
-			model.put("response",false);
 			model.put("textResponse", "No se ha podido añadir la película.");
 		}
-		
 		return "response :: responseFragment";
 	}
 	
@@ -96,15 +86,12 @@ public class GestorUiController {
 		try {
 			ResponseEntity<String> response = gestionarPelicula.deleteMovie(id);
 			if(response.getStatusCodeValue()==200) {
-				model.put("response",true);
 				model.put("textResponse", response.getBody()); //"Película eliminada con éxito");
 			}else {
-				model.put("response",true);
 				model.put("textResponse", "No se ha podido eliminar la película");
 			}
 			
 		}catch(Exception e){
-			model.put("response",true);
 			model.put("textResponse", "No se ha podido eliminar la película");
 		}
 		return "response :: responseFragment";
@@ -121,14 +108,11 @@ public class GestorUiController {
 			//Respuesta
 			ResponseEntity<String> response = gestionarPelicula.updateMovie(movie, id);
 			if(response.getStatusCodeValue()== 200) {
-				model.put("response",true);
-				model.put("textResponse", response.getBody());//"Película "+id+" actualizada con éxito");
+				model.put("textResponse", response.getBody());
 			}else {
-				model.put("response",false);
 				model.put("textResponse", "No se ha podido actualizar la película");
 			}
 		}catch(Exception e){
-			model.put("response",false);
 			model.put("textResponse", "No se ha podido actualizar la película");
 		}
 		
@@ -143,13 +127,11 @@ public class GestorUiController {
 				model.put("movie",response.getBody());
 				return "manageMovie";
 			}else {
-				model.put("response",false);
 				model.put("textResponse", "No se ha podido encontrar la película");
 				return "response :: responseFragment";
 			}
 			
 		}catch(Exception e){
-			model.put("response",false);
 			model.put("textResponse", "Hubo un error al buscar la película");
 			return "response :: responseFragment";
 		}
@@ -165,14 +147,12 @@ public class GestorUiController {
 	
 	@GetMapping("/error")
 	public String setError(Map<String, Object> model) {
-		model.put("response", false);
 		model.put("textResponse", "Ha ocurrido un error");
 		return "response :: responseFragment";
 	}
 
 	@GetMapping("/error/{error}")
 	public String setSpecifiedError(Map<String, Object> model, @PathVariable("error") String error) {
-		model.put("response", false);
 		model.put("textResponse", "Ha ocurrido un error: " + error);
 		return "response :: responseFragment";
 	}

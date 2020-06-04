@@ -5,14 +5,9 @@
 
 </head>
 <body>
-	<div id="snackbar" th:fragment="responseFragment" th:unless="${response==null}">
-		<!-- IF/ELSE -->
-		<div th:if="${response.equals(true)}">
-			<p th:text="${textResponse}"></p>
-		</div>
-		<div th:if="${response.equals(false)}">
-			<p th:text="${textResponse}"></p>
-		</div>
+	<div id="snackbar" th:fragment="responseFragment"
+		th:unless="${textResponse==null}">
+		<p th:text="${textResponse}"></p>
 	</div>
 </body>
 </html>

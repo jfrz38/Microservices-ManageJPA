@@ -9,7 +9,8 @@
         <xsd:sequence>
             <xsd:element name="shortDescription" type="xsd:string"/>
             <xsd:element name="largeDescription" type="xsd:string"/>
-	    <xsd:element name="date" type="xsd:string"/>
+	    	<xsd:element name="date" type="xsd:string"/>
+	    	<xsd:element name="url" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
 </xsd:schema>

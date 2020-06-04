@@ -87,13 +87,10 @@ public class Movie {
 	}
 
 	public void setComments(Set<Comment> comments) {
-		// double totalRating = 0.0;
 		this.comments = comments;
-		for (Comment comment : comments) {
+		for(Comment comment : comments) {
 			comment.setMovie(this);
-			// totalRating+=comment.getRating();
 		}
-		// this.setRating(totalRating/comments.size());
 	}
 
 	public double getTotalRating() {

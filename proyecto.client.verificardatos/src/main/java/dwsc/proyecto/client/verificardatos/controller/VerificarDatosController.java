@@ -55,7 +55,6 @@ public class VerificarDatosController {
 		}catch(Exception e) {
 			return ResponseEntity.notFound().build();
 		}
-		
 	}
 
 	@Bean

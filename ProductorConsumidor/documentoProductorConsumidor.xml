@@ -4,5 +4,6 @@
 		<shortDescription>short description</shortDescription>
 		<largeDescription>large description</largeDescription>
 		<date>01/01/0001</date>
+		<url>url</url>
 	</noticia>
 </documentoProductorConsumidor>

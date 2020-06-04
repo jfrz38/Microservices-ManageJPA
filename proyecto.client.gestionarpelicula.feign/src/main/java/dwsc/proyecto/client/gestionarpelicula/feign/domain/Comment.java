@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Comment {
@@ -71,8 +72,10 @@ public class Comment {
 		return movie;
 	}
 
+	@JsonIgnore
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+		if(movie.getComments()==null) return;
 		movie.getComments().add(this);
 		movie.addRating(rating);
 	}
