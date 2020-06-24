@@ -7,6 +7,7 @@ Aplicación basada en Microservicios + CORBA que permite gestionar películas, u
 Operaciones CRUD sobre películas y usuarios  
 - - -
 ![img1](./images/image1.png?raw=true)
+- - -
 ### CORBA
 Insertar y leer de un buffer  
 - - -
