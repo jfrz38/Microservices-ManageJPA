@@ -1,10 +1,10 @@
 # dwsc-project
 Proyecto final de la asignatura Desarrollo Web Basado en Servicios y Componentes.
 
-Aplicación basada en Microservicios + CORBA que permite gestionar películas, usuarios y noticias
+Aplicación implementada con Spring Boot basada en Microservicios + CORBA que permite gestionar películas, usuarios y noticias
 
 ### Microservicios
-Operaciones CRUD sobre películas y usuarios  
+Operaciones CRUD sobre películas y usuarios: Spring Boot JPA
 - - -
 ![img1](./images/image1.png?raw=true)
 - - -
